@@ -91,7 +91,7 @@ the interaction*:
 - Who is present, and how does the piece color the relationships between them?
    * There are mainly two people in a relationship who share two different picture frames that communicate via changes in light. 
 - What is the piece famous for? What are its strengths and its weaknesses?
-   * 
+   * One main weakness I noticed is that it requires the user to have the dexterity to be able to pick up and utilize the material, if the frame is too heavy for someone, they won't be able to pickup the device and transmit their thoughts with the device very effectively. In addition to this, the users needed to develop their own language essentially by playing around with the device, so there is an initial learning curve, and users needed time to understand what different signals meant. 
    * The LumiTouch piece is famous for being exploring a previously "unexplored gray region between ambient and direct communication". - https://trackr-media.tangiblemedia.org/publishedmedia/Papers/285-LumiTouch%20An%20Emotional%20Communication/Published/PDF 
 
   Sometimes the details of how the interaction worked are lost in history. Try filling it in with your imagination!
