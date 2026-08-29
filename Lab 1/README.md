@@ -92,12 +92,14 @@ the interaction*:
    * There are mainly two people in a relationship who share two different picture frames that communicate via changes in light. 
 - What is the piece famous for? What are its strengths and its weaknesses?
    * One main weakness I noticed is that it requires the user to have the dexterity to be able to pick up and utilize the material, if the frame is too heavy for someone, they won't be able to pickup the device and transmit their thoughts with the device very effectively. In addition to this, the users needed to develop their own language essentially by playing around with the device, so there is an initial learning curve, and users needed time to understand what different signals meant. 
-   * The LumiTouch piece is famous for being exploring a previously "unexplored gray region between ambient and direct communication". - https://trackr-media.tangiblemedia.org/publishedmedia/Papers/285-LumiTouch%20An%20Emotional%20Communication/Published/PDF 
+   * The LumiTouch piece is famous for being exploring a previously "unexplored gray region between ambient and direct communication". https://trackr-media.tangiblemedia.org/publishedmedia/Papers/285-LumiTouch%20An%20Emotional%20Communication/Published/PDF
 
   Sometimes the details of how the interaction worked are lost in history. Try filling it in with your imagination!
 
 **Describe your masterwork here, in your own words. What is the core interaction
 someone would recognize it by?**
+
+The core interaction people would recognize it by is by ambient glow being created from someone standing infront of a picture frame. Then the picture frame's glow and color must change once the standing person eventually grabs the product. The three thingis of pulse, intensity, and color chhange must be present to show the three interactions  described in the section above about inputs and outputs.
 
 ## Part A. Plan
 
