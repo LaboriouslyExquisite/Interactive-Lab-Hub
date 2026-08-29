@@ -91,7 +91,8 @@ the interaction*:
 - Who is present, and how does the piece color the relationships between them?
    * There are mainly two people in a relationship who share two different picture frames that communicate via changes in light. 
 - What is the piece famous for? What are its strengths and its weaknesses?
-   * The LumiTouch piece is famous for being exploring a previously "unexplored gray region between ambient and direct communication".
+   * 
+   * The LumiTouch piece is famous for being exploring a previously "unexplored gray region between ambient and direct communication". - https://trackr-media.tangiblemedia.org/publishedmedia/Papers/285-LumiTouch%20An%20Emotional%20Communication/Published/PDF 
 
   Sometimes the details of how the interaction worked are lost in history. Try filling it in with your imagination!
 
