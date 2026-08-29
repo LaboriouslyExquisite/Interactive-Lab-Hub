@@ -84,8 +84,14 @@ drew. Do real research. You are looking less for trivia than for the *shape of
 the interaction*:
 
 - What inputs are available to the user? What responses does the work give?
+   * There are three different input types:
+      1. Standing in-front of the picture frame A causes picture frame B to glow
+      2. Touching picture frame A directly increases the intensity, and may even cause the color of the glow of picture frame B in the same location that picture frame A is touched to change.
+      3. How long the glow, intensity, and color changes based on how long picture frame A is touched for compared to picture frame B
 - Who is present, and how does the piece color the relationships between them?
+   * There are mainly two people in a relationship who share two different picture frames that communicate via changes in light. 
 - What is the piece famous for? What are its strengths and its weaknesses?
+   * The LumiTouch piece is famous for being exploring a previously "unexplored gray region between ambient and direct communication".
 
   Sometimes the details of how the interaction worked are lost in history. Try filling it in with your imagination!
 
