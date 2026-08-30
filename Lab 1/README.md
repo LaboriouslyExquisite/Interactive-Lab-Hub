@@ -99,7 +99,7 @@ the interaction*:
 **Describe your masterwork here, in your own words. What is the core interaction
 someone would recognize it by?**
 
-The core interaction people would recognize it by is by ambient glow being created from someone standing infront of a picture frame. Then the picture frame's glow and color must change once the standing person eventually grabs the product. The three thingis of pulse, intensity, and color chhange must be present to show the three interactions  described in the section above about inputs and outputs.
+The core interaction people would recognize it by is by ambient glow being created from someone standing in front of a picture frame. Then the picture frame's glow and color must change once the standing person eventually grabs the product. Three of the most important things regarding the light and the interaction is that pulse, intensity, and color change must be present in order for people to recognize what this masterwork is! My in depth description to these three light interactions can be found above in the section asking me to talk about inputs and outputs.
 
 ## Part A. Plan
 
@@ -113,6 +113,7 @@ For your masterwork, reconstruct the interaction as a scene:
 - **Goals:** What is each player trying to do?
 
 **Describe your setting, players, activity, and goals here.**
+   * The setting is somewhere that would contain a picture frame that holds an image of a partner, this could be a bedroom, office room, and more. There are going to be two players and each player will have one picture frame that glows based on the actions that occur from the other player. The activity that occurs between the players is one of the players is most likely going to be observing the glow that is being caused, and the player will be causing the picture frame to glow in different ways by how they are touching the picture frame, and the intensity they touch the picture frame with. The goal of the interaction should be to make the other player feel something, perhaps it engages their interest for a few seconds, or it causes them to respond back by touching their picture frame.  
 
 Now **sketch a 3 storyboards** of the interaction you are recreating. (The number may depend on the thing you drew, but stretch your thinking!) They
 don't need to be beautiful, but they must capture and communicate not only the behavior of the light, but how it affects
