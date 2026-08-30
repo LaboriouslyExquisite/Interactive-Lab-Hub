@@ -148,6 +148,12 @@ A few key moments could be the girlfriend doesn't respond, and so the boyfriend 
 
 Iterate your storyboards to capture key non-sequential aspects of the interaction. 
 
+<img width="2386" height="1491" alt="Storyboard Lab01 Part A-2 (1)" src="https://github.com/user-attachments/assets/a60c56a9-bde4-423c-a226-5673d9a0fc38" />
+
+<img width="2386" height="1491" alt="Storyboard Lab01 Part A-3 (1)" src="https://github.com/user-attachments/assets/b9a1513f-404d-4fdc-98d5-fd953a7257e1" />
+
+<img width="2386" height="1491" alt="Storyboard Lab01 Part A-5" src="https://github.com/user-attachments/assets/b597d35e-e374-4722-9efb-3d35c2a4ed48" />
+
 ## Part C. Prototype the Light (light first!)
 
 Use your smartphone as the light of your device. Open the browser on your phone
