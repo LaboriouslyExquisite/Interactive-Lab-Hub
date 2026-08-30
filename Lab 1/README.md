@@ -143,8 +143,9 @@ The whole act of having a painting on the wall is interesting, but because I mov
 Did new ideas about the piece surface once you were on your feet?**
 It turns out that I don't own any picture frames since I had moved from Minnesota, so I had to improvise and use my high whiteboard that has been mounted onto my wall to act as one of the partners and while the other partner had the phone where the light would be simulated to look like the lumitouch frame. With this, I realized that I didn't have two different devices to change the color of, nor can I recruit friends to help me act out this skit so I had to improvise and when I make my video, I am imagining that I will be using my tablet to show how the interactions work, and play the part of both partners, and then stitch the parts together in a software like clipchamp.  
 
-
 **Are there key moments in the interaction where things could go in a different direction?**
+A few key moments could be the girlfriend doesn't respond, and so the boyfriend doesn't engage further. The girlfriend could be the first to initiate the conversation by standing in front of the frame first. A key moment could be that a tap isn't transmitted properly, and then the person goes away leaving the other person confused as to why they didn't respond, there is a ton of different things that could happen, but the main one I am going to emphasis is that the picture frame doesn't just have to be one mounted on the wall, it's form can be changed slightly and still provide the same playful interactions, which is why in the iterated storyboard, I have put the picture frames on a bedside and on a table in the respective partners rooms. 
+
 Iterate your storyboards to capture key non-sequential aspects of the interaction. 
 
 ## Part C. Prototype the Light (light first!)
