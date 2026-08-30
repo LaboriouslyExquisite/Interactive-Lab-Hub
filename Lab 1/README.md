@@ -130,7 +130,7 @@ and the people around it. If you're new to storyboarding, read
 Use the storyboards to decide what interaction to prototype.
 
 **Summarize the feedback you got here.**
-
+I spoke with my roommate Nurain and they brought up a good point that it would be hard to know what you are communicating to your partner if there is no feedback on what is happening based on when you stand in front of the frame, touch it, touch it firmly, and more. This was interesting as he is correct, there is no feedback to the user, the only feedback they have is the one provided to them from their partner, so if there is ever a miscommunication it's not possbile to correct this. In addition to this, they really liked storyboard 1 as it showed how the interaction changes from passive communication to active (ambient vs direct)!
 ## Part B. Act out the Interaction
 
 Physically act out the interaction you planned. For now, just pretend the light
