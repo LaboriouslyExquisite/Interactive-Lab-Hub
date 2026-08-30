@@ -121,6 +121,11 @@ and the people around it. If you're new to storyboarding, read
 [this explanation](https://www.nngroup.com/articles/storyboards-visualize-ideas/).
 
 **Include pictures of your storyboards here.**
+<img width="2386" height="1491" alt="Storyboard Lab01 Part A-1" src="https://github.com/user-attachments/assets/f2bc7ab5-5ce0-4b6e-a4d7-2161a1a21e9e" />
+
+<img width="2386" height="1491" alt="Storyboard Lab01 Part A-2" src="https://github.com/user-attachments/assets/0d7be779-5b0e-437c-b88b-88e8b97ee4fd" />
+
+<img width="2386" height="1491" alt="Storyboard Lab01 Part A-3" src="https://github.com/user-attachments/assets/3fcd9bed-8047-4334-8363-6dd8b604d088" />
 
 Use the storyboards to decide what interaction to prototype.
 
