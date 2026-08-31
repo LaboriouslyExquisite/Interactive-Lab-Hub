@@ -179,6 +179,8 @@ video feed of whichever scene you want to capture.)
 
 **Include your first attempts at recording the wizarded set-up here.**
 
+https://github.com/user-attachments/assets/c6ee1481-6a3b-4030-bee6-ecdb93fa4bea
+
 ## Part E. (optional) Costume the Device
 
 Only now should you worry about what the device looks like. Costume your phone so it reads
@@ -190,8 +192,10 @@ Is water a danger? Does it need to be loud and bright for an emergency, or quiet
 and calm for a bedroom?
 
 **Include sketches/photos of what your device might look like here.**
+<img width="710" height="470" alt="image" src="https://github.com/user-attachments/assets/d887c91d-fd91-405b-9485-8233e1efe677" />
 
 **What concerns or opportunities shaped the way you designed its look?**
+I was able to get my tablet to connect to the wizard setup, which afforded me to use paper to make a frame out of the changing light of my ipad screen! Previously I was doing this on my phone, and I wasn't going to add a piece of paper in the center to simulate a picture inside a picture frame. But I think it looks much better with the fake images I drew by hand, even if they aren't that of an artist.
 
 ## Part F. Record
 
@@ -200,6 +204,7 @@ the top of this lab: a viewer who knows the piece should recognize it; a viewer
 who doesn't should come away understanding what it's famous for. How might you illustrate the non-sequential aspects of the interaction in the sketch?
 
 **Include your video here.**
+As you can see, the wizarding set up did not light up the first time we tried shooting the video of the interaction :O
 
 https://github.com/user-attachments/assets/35957d53-8cb8-47e2-b312-1feab35de084
 
