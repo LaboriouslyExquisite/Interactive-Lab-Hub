@@ -231,6 +231,11 @@ wasn't clear.
 **Who were the other groups you kibitzed with? Add links to their project pages here.**
 **Summarize the feedback you got from your partners here.**
 
+Alexa Yang - 
+Alexander Yen - [https://github.com/Alexyen04/Alex-Yen-Interactive-Lab-Hub/blob/Fall2026/Lab%201/README.md](https://github.com/Alexyen04/Alex-Yen-Interactive-Lab-Hub/blob/Fall2026/Lab%201/README.md)
+Jovian Wang - [https://github.com/jovianw/Interactive-Lab-Hub/blob/Fall2026/Lab%201/ReadME.md](https://github.com/jovianw/Interactive-Lab-Hub/blob/Fall2026/Lab%201/README.md)
+
+
 ## Remix, Update, or Critique the Master
 
 Now that you understand your masterwork from the inside, respond to it. Do the
