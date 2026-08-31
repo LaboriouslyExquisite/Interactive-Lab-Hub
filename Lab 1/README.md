@@ -201,9 +201,13 @@ who doesn't should come away understanding what it's famous for. How might you i
 
 **Include your video here.**
 
+https://github.com/user-attachments/assets/35957d53-8cb8-47e2-b312-1feab35de084
+
 **Please indicate who you collaborated with on this lab.** Be generous in
 acknowledging their contributions, and credit any other influences (YouTube,
 Github, Twitter, a friend who lent you a lamp) that informed your recreation.
+
+Nurain Jiwani my roomate helped record, and changed the lights of the tablet using my laptop!
 
 ---
 
