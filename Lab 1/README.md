@@ -206,7 +206,6 @@ the top of this lab: a viewer who knows the piece should recognize it; a viewer
 who doesn't should come away understanding what it's famous for. How might you illustrate the non-sequential aspects of the interaction in the sketch?
 
 **Include your video here.**
-As you can see, the wizarding set up did not light up the first time we tried shooting the video of the interaction :O
 
 https://github.com/user-attachments/assets/35957d53-8cb8-47e2-b312-1feab35de084
 
