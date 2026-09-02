@@ -232,6 +232,7 @@ wasn't clear.
 **Summarize the feedback you got from your partners here.**
 
 1. Alexa Yang - 
+feedback: Omg love it haha, I can tell it’s a very social light installation like facilitating social interaction even from far away. I really like your choice in light color because it denotes the affection between the two parties. I think something cool you might also try and use the inverse, like if the light was a cooler tone that would denote a sadness or one of the partners missing the other. And in a more technical sense that could make use of some facial recognition that tracks the muscles and expression to match the color
 
 2. Alexander Yen - [https://github.com/Alexyen04/Alex-Yen-Interactive-Lab-Hub/blob/Fall2026/Lab%201/README.md](https://github.com/Alexyen04/Alex-Yen-Interactive-Lab-Hub/blob/Fall2026/Lab%201/README.md)
 feedback: The video portrays the interaction of the masterwork in a clear and visual manner. When the user approaches the picture frame it causes the other distant user's picture frame to light up. One improvement that could me made is to the storyboard. The storyboard can be slightly difficult to follow when there are a mix of colors, specifically when the colors overlap each other it is hard to tell the meanings of each color.
