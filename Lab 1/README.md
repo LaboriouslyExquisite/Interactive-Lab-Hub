@@ -234,6 +234,7 @@ wasn't clear.
 1. Alexa Yang - 
 
 2. Alexander Yen - [https://github.com/Alexyen04/Alex-Yen-Interactive-Lab-Hub/blob/Fall2026/Lab%201/README.md](https://github.com/Alexyen04/Alex-Yen-Interactive-Lab-Hub/blob/Fall2026/Lab%201/README.md)
+feedback: The video portrays the interaction of the masterwork in a clear and visual manner. When the user approaches the picture frame it causes the other distant user's picture frame to light up. One improvement that could me made is to the storyboard. The storyboard can be slightly difficult to follow when there are a mix of colors, specifically when the colors overlap each other it is hard to tell the meanings of each color.
 
 3. Yuqi Wang - github.com/YuqiWang1106/Interactive-Lab-Hub/…/Lab%201
 feedback: I saw that when Person A approached and looked at the picture frame, Person B’s frame, which was in a different location, lit up. Then, when Person B got up and approached their frame, Person A’s frame changed color. When Person A picked up the frame, Person B’s frame turned red.
