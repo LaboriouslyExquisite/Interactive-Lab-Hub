@@ -231,10 +231,14 @@ wasn't clear.
 **Who were the other groups you kibitzed with? Add links to their project pages here.**
 **Summarize the feedback you got from your partners here.**
 
-1. Alexa Yang -
-2. Alexander Yen - [https://github.com/Alexyen04/Alex-Yen-Interactive-Lab-Hub/blob/Fall2026/Lab%201/README.md](https://github.com/Alexyen04/Alex-Yen-Interactive-Lab-Hub/blob/Fall2026/Lab%201/README.md)
-3. Jovian Wang - [https://github.com/jovianw/Interactive-Lab-Hub/blob/Fall2026/Lab%201/ReadME.md](https://github.com/jovianw/Interactive-Lab-Hub/blob/Fall2026/Lab%201/README.md)
+1. Alexa Yang - 
 
+2. Alexander Yen - [https://github.com/Alexyen04/Alex-Yen-Interactive-Lab-Hub/blob/Fall2026/Lab%201/README.md](https://github.com/Alexyen04/Alex-Yen-Interactive-Lab-Hub/blob/Fall2026/Lab%201/README.md)
+
+3. Yuqi Wang - github.com/YuqiWang1106/Interactive-Lab-Hub/…/Lab%201
+feedback: I saw that when Person A approached and looked at the picture frame, Person B’s frame, which was in a different location, lit up. Then, when Person B got up and approached their frame, Person A’s frame changed color. When Person A picked up the frame, Person B’s frame turned red.
+My guess is that the masterwork is a long-distance communication device that uses light and color to create a sense of connection between two people who are physically apart. Instead of sending a text message or making a phone call, the frames communicate through subtle changes in light. The goal of the two characters seems to be letting each other know that they are present and interacting with the frame, creating a feeling that the other person is somehow there with them.
+One thing that was not completely clear to me was what the different colors represented. For example, I was not sure whether the red light had a specific meaning, such as indicating that the other person had picked up the frame, or whether it was simply showing a stronger level of interaction.
 
 ## Remix, Update, or Critique the Master
 
