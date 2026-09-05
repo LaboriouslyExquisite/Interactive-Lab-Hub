@@ -231,13 +231,13 @@ wasn't clear.
 **Who were the other groups you kibitzed with? Add links to their project pages here.**
 **Summarize the feedback you got from your partners here.**
 
-1. Alexa Yang - 
+1. Alexa Yang - [https://github.com/alexa482/Interactive-Lab-Hub1/tree/Fall2026/Lab%201] (https://github.com/alexa482/Interactive-Lab-Hub1/tree/Fall2026/Lab%201)
 feedback: Omg love it haha, I can tell it’s a very social light installation like facilitating social interaction even from far away. I really like your choice in light color because it denotes the affection between the two parties. I think something cool you might also try and use the inverse, like if the light was a cooler tone that would denote a sadness or one of the partners missing the other. And in a more technical sense that could make use of some facial recognition that tracks the muscles and expression to match the color
 
 2. Alexander Yen - [https://github.com/Alexyen04/Alex-Yen-Interactive-Lab-Hub/blob/Fall2026/Lab%201/README.md](https://github.com/Alexyen04/Alex-Yen-Interactive-Lab-Hub/blob/Fall2026/Lab%201/README.md)
 feedback: The video portrays the interaction of the masterwork in a clear and visual manner. When the user approaches the picture frame it causes the other distant user's picture frame to light up. One improvement that could me made is to the storyboard. The storyboard can be slightly difficult to follow when there are a mix of colors, specifically when the colors overlap each other it is hard to tell the meanings of each color.
 
-3. Yuqi Wang - github.com/YuqiWang1106/Interactive-Lab-Hub/…/Lab%201
+3. Yuqi Wang - [github.com/YuqiWang1106/Interactive-Lab-Hub/…/Lab%201](https://github.com/YuqiWang1106/Interactive-Lab-Hub/tree/Fall2026/Lab%201)
 feedback: I saw that when Person A approached and looked at the picture frame, Person B’s frame, which was in a different location, lit up. Then, when Person B got up and approached their frame, Person A’s frame changed color. When Person A picked up the frame, Person B’s frame turned red.
 My guess is that the masterwork is a long-distance communication device that uses light and color to create a sense of connection between two people who are physically apart. Instead of sending a text message or making a phone call, the frames communicate through subtle changes in light. The goal of the two characters seems to be letting each other know that they are present and interacting with the frame, creating a feeling that the other person is somehow there with them.
 One thing that was not completely clear to me was what the different colors represented. For example, I was not sure whether the red light had a specific meaning, such as indicating that the other person had picked up the frame, or whether it was simply showing a stronger level of interaction.
