@@ -265,7 +265,19 @@ prototype are great too.**
 
 ---
 
+Storyboard for LumiTouch x Beacon Chain project:
+<img width="1024" height="640" alt="copy_of_storyboard_lab01_part_b-7_1024" src="https://github.com/user-attachments/assets/9ae2dc25-7180-4452-9368-040506436ff7" />
 
+<img width="1024" height="640" alt="copy_of_storyboard_lab01_part_b-8_1024" src="https://github.com/user-attachments/assets/e3c01284-2e3c-4c3f-be63-401bf2c56e07" />
+
+
+
+
+Thinking through how we will use our prototype to show LumiTouch x Beacon Chain: 
+https://github.com/user-attachments/assets/efa2cda6-2d5e-4a5e-92e1-4356e95003ea
+
+Final Video:
+https://github.com/user-attachments/assets/979810ce-2254-47a5-b443-c852419300ef
 
 *Assignment lineage: this lab merges "Staging Interaction" (Interactive Lab Hub)
 with "Recreating the Masters" (Interaction Design Studio, Profs. Scott Minneman &
