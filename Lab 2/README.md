@@ -132,7 +132,6 @@ Line up the screen and press it on the headers. The hole in the screen should ma
 <img src="https://cdn-learn.adafruit.com/assets/assets/000/087/539/medium640/adafruit_products_4393_quarter_ORIG_2019_10.jpg?1579991932" height="200" />
 <img src="https://cdn-learn.adafruit.com/assets/assets/000/082/861/original/adafruit_products_image.png" height="200">
 </p>
-<img width="1600" height="1200" alt="WhatsApp Image 2026-09-13 at 11 20 47 PM" src="https://github.com/user-attachments/assets/15f7f054-789f-4938-8b65-0ad583c467b2" />
 
 ### Testing your Screen
 
@@ -163,6 +162,8 @@ You can look in `image.py` for an example of how to display an image on the scre
 
 
 <img width="768" height="1024" alt="WhatsApp Image 2026-09-13 at 10 40 46 PM" src="https://github.com/user-attachments/assets/0c65845e-5650-4119-87f3-cc5ba4c0613d" />
+
+<img width="1600" height="1200" alt="WhatsApp Image 2026-09-13 at 11 20 47 PM" src="https://github.com/user-attachments/assets/15f7f054-789f-4938-8b65-0ad583c467b2" />
 
 ## Part D. 
 ### Set up the Display Clock Demo
