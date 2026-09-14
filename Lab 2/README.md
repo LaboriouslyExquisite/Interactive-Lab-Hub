@@ -158,6 +158,7 @@ You can look in `image.py` for an example of how to display an image on the scre
 
 \*\*\***Include a picture of your own Raspberry Pi displaying the piscreen.service with your unique MAC address. Additionally, please provide another picture showing the successful completion of the screen test.**\*\*\*
 
+<img width="768" height="1024" alt="WhatsApp Image 2026-09-13 at 10 40 46 PM" src="https://github.com/user-attachments/assets/0c65845e-5650-4119-87f3-cc5ba4c0613d" />
 
 ## Part D. 
 ### Set up the Display Clock Demo
