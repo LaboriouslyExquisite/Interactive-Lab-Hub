@@ -200,6 +200,26 @@ We strongly discourage literal digital or analog clock display: Be creative.
 
 ** Insert ideas, sketches, [Verplank diagrams](https://ccrma.stanford.edu/courses/250a-fall-2004/IDSketchbok.pdf)), storyboards for your ideas **
 
+## Concept: Spider-Verse Clock
+
+Instead of showing literal time, a chibi Spider-Man mascot swaps suits every hour (24 suits total, one per hour). Each suit has a signature food, and the number of food items shown scales with the hour.
+
+| Hour | Suit | Food (qty = hour) |
+|---|---|---|
+| 8am | Spider-Man India (Pavitr) | 8 cups of chai |
+| 12pm | Spider-Ham (Peter Porker) | 12 mini pies |
+| 3pm | Miles Morales | 3 pizza slices |
+| 6pm | Peter Parker (classic) | 6 of Aunt May's pies |
+| 12am | Spider-Gwen | 12 donuts |
+| 2am | Spider-Man Noir | 2 cups of coffee |
+
+**Interaction loop:** clock ticks → pick suit for current hour → render mascot + food count → repeat every hour.
+
+**Extension ideas:**
+- Button press = "spider-sense" easter egg, flashes a random alt suit
+- Midnight = full-screen suit montage
+- 
+<img width="2244" height="2904" alt="Piclock Spiderman-1" src="https://github.com/user-attachments/assets/7ad4ed6a-b4cb-4be0-a0f9-5f99353d6418" />
 
 
 **Put the names of the people you gave feedback to here. (Even better, add links to their repos here!)**
