@@ -291,12 +291,13 @@ After we were able to successfully display and switch between images on our bare
 
 \*\*\***Put a copy of your code in your Lab 2 Github repo.**\*\*\*
 
-
+Look into final_cli_clock.py
 
 \*\*\***Take a video of your PiClock.**\*\*\*
 
+https://youtube.com/shorts/OLUb-G72180?feature=share 
 
-As always, make sure you document contributions and ideas from others (and AI) explicitly in your writeup.
+As always, make sure you document contributions and ideas from others (and AI) explicitly in your writeup. AI helped with generating the images, and general code.
 
 You are permitted (but not required) to work in groups and share a turn in; you are expected to make equal contribution on any group work you do, and N people's group project should look like N times the work of a single person's lab.  Make sure the page for the group turn in is linked to your personal Interactive Lab Hub page. 
 
