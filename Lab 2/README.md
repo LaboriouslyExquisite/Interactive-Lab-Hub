@@ -260,7 +260,7 @@ Start small, pick just one element of your overall idea, just to show you have a
 
 \*\*\***Put a copy of your code in your Lab 2 Github repo.**\*\*\*
 
-
+For our barebones clock, we modified images.py to allow for switching between two images on click: Spider-Man in the daytime and Spider-Man at night. This was the base functionality of our clock. We were surprised at how great the resolution is on the Adafruit screen! - "Neeha Ravula"
 
 ## Make a short video of your modified barebones PiClock
 
