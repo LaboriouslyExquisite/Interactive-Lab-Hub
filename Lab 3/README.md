@@ -148,6 +148,23 @@ Available sizes, smallest first: `tiny.en`, `base.en`, `small.en`, `medium.en`. 
 
 \*\***Record a few seconds of your own speech (`arecord -d 5 -f cd -c 1 -r 16000 test.wav`) and transcribe it with at least two model sizes. Report the real-time factor for each. At what point does the accuracy improvement stop being worth the delay, for a system that has to answer you?**\*\*
 
+I recorded myself saying my raspberry pi's IP address ("[what you said 10.56.129.76]") and transcribed the same 5-second clip with four model sizes:
+
+| Model | Transcription time | Real-time factor | Transcript |
+| :--- | :--- | :--- | :--- |
+| tiny.en | 1.07 s | 0.21x | IP address is 1056 or 12976 |
+| base.en | 2.02 s | 0.40x | IP address is 1056, 12976. |
+| small.en | 5.64 s | 1.13x | IP address is 1056 12976 |
+| medium.en | 15.79 s | 3.16x | IP address is 1056.129.76 |
+
+(medium.en's 187 s model load included downloading 1.5 GB. That's a one-time cost, not part of the response delay.)
+
+Every model heard the same digits. What they got wrong was the structure. tiny.en even invented an "or" that I never said. base.en and small.en turned the dots into a comma or a space. Only medium.en recognized the dots, and it still grouped the numbers wrong. So the bigger models didn't hear better. They just guessed the formatting better.
+
+The improvement stops being worth it after base.en. small.en has a real-time factor above 1, meaning it takes longer to transcribe than I took to speak. On top of the silence the system already waits to decide I'm done, that's almost 6 seconds of dead air, which feels like the device froze. medium.en took 16 seconds for a 5-second sentence, which is unusable in conversation. base.en answered in about 2 seconds with the same digits as the others. For a system that has to reply, base.en (or tiny.en for speed) is the sweet spot.
+
+Design takeaway: a bigger model isn't the fix for numbers. It's better to use a fast model, clean up the digits in code, and read the number back for confirmation ("I heard 10, 56, 129, 76, is that right?").
+
 \*\***Write your own script that verbally asks for a numerical input (a phone number, zipcode, number of pets) and records the answer the respondent provides.**\*\* Numbers are a good stress test — transcription systems make characteristic errors on digit strings, and you will want to know what they are before you design around them.
 
 ## C. Turn-taking: knowing when someone has stopped talking
