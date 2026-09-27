@@ -184,7 +184,7 @@ https://github.com/user-attachments/assets/8f1f7c83-d23e-4133-86db-e3a0befcbf1e
 
 \*\***Describe if the dialogue seemed different than what you imagined when it was acted out, and how.**\*\*
 
-Overall the script we followed was almost perfect. There were some inconsistences regarding when the icons showing the state of the camera
+Overall the script we followed was almost perfect. There were some inconsistences regarding when the icons would show up, however it was overall pretty smooth. When we design this to work on our raspberry pi we will need to make sure that the icons show in the PiTFT screen to show what state the program is in. We had to redo our video a few times because timing the icons with the voice, and the actions was difficult.
 
 ---
 
