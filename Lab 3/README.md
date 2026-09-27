@@ -114,6 +114,20 @@ look for file in this path Interactive-Lab-Hub/Lab 3/speech-scripts/greet_viktor
 
 \*\***Then answer: Is the same greeting, in these different voices, the same greeting? Describe one concrete way the voice changed what the utterance seemed to mean or who seemed to be speaking.**\*\*
 
+No, not really. The words are the same, but each voice made a different "someone" say them.
+
+* espeak sounded like a machine reading a label. My name came out pronounced sorta funky rather than something realistic as to what someone would say (Vik - ter, Ray-dev).
+
+* festival sounded more human but choppy. It seemed like a recorded announcement, not someone talking to me.
+
+* Piper (lessac, English) sounded like a polite assistant or receptionist. It was friendly but impersonal, and it said "Radev" the way an American reads an unfamiliar name.
+
+* Piper (dimitar, Bulgarian) changed the meaning most. „Здравей, Виктор Радев" said my name the way my family says it, with the stress on РА-дев (Raw - dev). It stopped sounding like a device and more like a human who knows me.
+
+One concrete change: the Bulgarian voice was fine-tuned from the English lessac voice, and you can hear it: there's a slight English accent under the Bulgarian. So even with correct words and pronunciation, it sounded like a foreigner who learned Bulgarian greeting me, not a native speaker. The language made it feel personal, but the voice changed who seemed to be speaking.
+
+A second, accidental example: when an encoding bug garbled the Cyrillic text, the same natural-sounding voice read symbols like "±" aloud as "plus minus". It still sounded confident and human while saying nonsense. A good voice makes you trust the words, whether or not they're right.
+
 ## B. Speech to Text
 
 We use [faster-whisper](https://github.com/SYSTRAN/faster-whisper), a reimplementation of OpenAI's Whisper model that runs several times faster on CPU and does not require PyTorch. All processing happens on the Pi; nothing is sent to a server.
