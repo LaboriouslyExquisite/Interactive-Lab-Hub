@@ -1,6 +1,7 @@
 # Chatterboxes
 
 **NAMES OF COLLABORATORS HERE**
+Alex Yen ( https://github.com/Alexyen04/Alex-Yen-Interactive-Lab-Hub/blob/Fall2026/Lab%203/README.md )
 
 [![Watch the video](https://user-images.githubusercontent.com/1128669/135009222-111fe522-e6ba-46ad-b6dc-d1633d21129c.png)](https://www.youtube.com/embed/Q8FWzLMobx0?start=19)
 
@@ -179,8 +180,11 @@ Your script should include the pauses. Where does your device wait, and for how 
 
 Find a partner, and *without sharing the script with your partner* try out the dialogue you've designed, where you (as the device designer) act as the device you are designing. Please record this interaction (for example, using Zoom's record feature).
 
+https://github.com/user-attachments/assets/8f1f7c83-d23e-4133-86db-e3a0befcbf1e
+
 \*\***Describe if the dialogue seemed different than what you imagined when it was acted out, and how.**\*\*
 
+Overall the script we followed was almost perfect. There were some inconsistences regarding when the icons showing the state of the camera
 
 ---
 
