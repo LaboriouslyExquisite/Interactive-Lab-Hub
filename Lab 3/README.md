@@ -165,7 +165,17 @@ The improvement stops being worth it after base.en. small.en has a real-time fac
 
 Design takeaway: a bigger model isn't the fix for numbers. It's better to use a fast model, clean up the digits in code, and read the number back for confirmation ("I heard 10, 56, 129, 76, is that right?").
 
-\*\***Write your own script that verbally asks for a numerical input (a phone number, zipcode, number of pets) and records the answer the respondent provides.**\*\* Numbers are a good stress test — transcription systems make characteristic errors on digit strings, and you will want to know what they are before you design around them.
+\*\***Write your own script that verbally asks for a numerical input (a phone number, zipcode, number of pets) and records the answer the respondent provides.**\*\* Numbers are a good stress test — transcription systems make characteristic errors on digit strings, and you will want to know what they are before you design around them. 
+
+For the script that verbally asks participant for a numerical input, go to: 
+
+Here is what it transcribed:
+time,question,model,transcript,digits,length_ok,transcribe_seconds,rtf
+2026-09-27T16:35:19,zip,base.en,My zip code is 10044.,10044,True,2.31,0.39
+2026-09-27T16:37:50,phone,base.en,6 1 2 7 6 3 6 5 7,612763657,False,2.69,0.45
+2026-09-27T16:38:33,pets,base.en,I have zero pets.,0,True,1.88,0.31
+
+ask_number.py uses Piper to ask a question out loud, records the answer, transcribes it with faster-whisper (base.en), and pulls out the digits. It reads the number back and logs every answer to number_log.csv. The zip code ("10044") and pets ("zero") came out right in about 2 seconds (real-time factor around 0.3–0.4). The phone number only came back with 9 of 10 digits, because the fixed 6-second recording cut me off before I finished. The length check caught it ("That doesn't look like a full phone number"). Together with the IP address test, where Whisper heard the right digits but grouped them wrong, this showed me that number errors come from timing and formatting more than from mishearing. So a number-taking system should wait until the person has actually stopped talking, check the number's length, and read it back for confirmation.
 
 ## C. Turn-taking: knowing when someone has stopped talking
 
