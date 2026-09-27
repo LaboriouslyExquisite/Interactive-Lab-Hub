@@ -110,78 +110,23 @@ The demo script also shows `--output-raw`, which streams audio to the speaker as
 \*\***Write your own shell file to use your favorite of these TTS engines to have your Pi greet you by name.**\*\*
 (This shell file should be saved to your own repo for this lab.)
 
-#!/usr/bin/env bash
-# greet_viktor.sh: Piper (neural TTS) greets me by name, in Bulgarian.
-#
-# Put this in "Lab 3/speech-scripts/" and run it from there:
-#   chmod +x greet_viktor.sh
-#   ./greet_viktor.sh                      # default Bulgarian greeting
-#   ./greet_viktor.sh "some other text"    # say something else
-#
-# The Bulgarian greeting is stored below as \uXXXX escapes, so this file is
-# plain ASCII. If an editor or a copy step mangles Cyrillic (e.g. Cyrillic "b"
-# turns into "D+-"), the voice reads symbols like "plus-minus" aloud. ASCII can't
-# be mangled that way.
-#
-# Voice: bg_BG-dimitar-medium. It is downloaded into "Lab 3/voices" if it is missing.
-
-set -euo pipefail
-
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-# Same voices folder as piper_demo.sh: "Lab 3/voices", one level up.
-VOICES_DIR="${VOICES_DIR:-$(cd "$SCRIPT_DIR/.." && pwd)/voices}"
-VOICE="${VOICE:-bg_BG-dimitar-medium}"
-MODEL="$VOICES_DIR/$VOICE.onnx"
-CONFIG="$MODEL.json"
-
-# Make Python read and write UTF-8 no matter what the Pi's locale is set to.
-export PYTHONUTF8=1
-
-# "Zdravey, Viktor Radev! Dobre doshal v laboratoriyata."
-# = "Hello, Viktor Radev! Welcome to the lab."
-GREETING='\u0417\u0434\u0440\u0430\u0432\u0435\u0439, \u0412\u0438\u043a\u0442\u043e\u0440 \u0420\u0430\u0434\u0435\u0432! \u0414\u043e\u0431\u0440\u0435 \u0434\u043e\u0448\u044a\u043b \u0432 \u043b\u0430\u0431\u043e\u0440\u0430\u0442\u043e\u0440\u0438\u044f\u0442\u0430.'
-
-# Use the lab's virtual environment if it isn't already active.
-if [[ -z "${VIRTUAL_ENV:-}" && -f "$SCRIPT_DIR/../.venv/bin/activate" ]]; then
-  set +u
-  # shellcheck disable=SC1091
-  source "$SCRIPT_DIR/../.venv/bin/activate"
-  set -u
-fi
-
-if ! python3 -c "import piper" 2>/dev/null; then
-  echo "Piper isn't installed in this Python. Activate the lab venv and run:" >&2
-  echo "  pip install -r requirements.txt" >&2
-  exit 1
-fi
-
-# Download the voice into VOICES_DIR if it isn't there yet.
-if [[ ! -f "$MODEL" || ! -f "$CONFIG" ]]; then
-  echo "Downloading $VOICE into $VOICES_DIR ..."
-  mkdir -p "$VOICES_DIR"
-  python3 -m piper.download_voices "$VOICE" --data-dir "$VOICES_DIR"
-fi
-
-# Raw audio has no header, so aplay has to be told the sample rate.
-# Each voice stores its own rate in its .onnx.json (medium voices are
-# usually 22050 Hz, not 16000). A wrong rate makes the voice slow and deep.
-if [[ $# -gt 0 ]]; then
-  TEXT="$1"
-else
-  TEXT="$(python3 -c 'import sys; print(sys.argv[1].encode("ascii").decode("unicode_escape"))' "$GREETING")"
-fi
-echo "Saying: $TEXT"
-
-RATE="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["audio"]["sample_rate"])' "$CONFIG")"
-
-# Stream straight to the speaker so speech starts before synthesis finishes.
-python3 -m piper \
-  --model "$MODEL" \
-  --output-raw \
-  -- "$TEXT" \
-  | aplay -q -r "$RATE" -f S16_LE -c 1 -t raw -
+look for file in this path Interactive-Lab-Hub/Lab 3/speech-scripts/greet_viktor.sh
 
 \*\***Then answer: Is the same greeting, in these different voices, the same greeting? Describe one concrete way the voice changed what the utterance seemed to mean or who seemed to be speaking.**\*\*
+
+No, not really. The words are the same, but each voice made a different "someone" say them.
+
+* espeak sounded like a machine reading a label. My name came out pronounced sorta funky rather than something realistic as to what someone would say (Vik - ter, Ray-dev).
+
+* festival sounded more human but choppy. It seemed like a recorded announcement, not someone talking to me.
+
+* Piper (lessac, English) sounded like a polite assistant or receptionist. It was friendly but impersonal, and it said "Radev" the way an American reads an unfamiliar name.
+
+* Piper (dimitar, Bulgarian) changed the meaning most. „Здравей, Виктор Радев" said my name the way my family says it, with the stress on РА-дев (Raw - dev). It stopped sounding like a device and more like a human who knows me.
+
+One concrete change: the Bulgarian voice was fine-tuned from the English lessac voice, and you can hear it: there's a slight English accent under the Bulgarian. So even with correct words and pronunciation, it sounded like a foreigner who learned Bulgarian greeting me, not a native speaker. The language made it feel personal, but the voice changed who seemed to be speaking.
+
+A second, accidental example: when an encoding bug garbled the Cyrillic text, the same natural-sounding voice read symbols like "±" aloud as "plus minus". It still sounded confident and human while saying nonsense. A good voice makes you trust the words, whether or not they're right.
 
 ## B. Speech to Text
 
@@ -202,6 +147,23 @@ The transcript is not the interesting output here — the timings are. Run it ag
 Available sizes, smallest first: `tiny.en`, `base.en`, `small.en`, `medium.en`. The `.en` variants are English-only and faster than their multilingual counterparts at the same size.
 
 \*\***Record a few seconds of your own speech (`arecord -d 5 -f cd -c 1 -r 16000 test.wav`) and transcribe it with at least two model sizes. Report the real-time factor for each. At what point does the accuracy improvement stop being worth the delay, for a system that has to answer you?**\*\*
+
+I recorded myself saying my raspberry pi's IP address ("[what you said 10.56.129.76]") and transcribed the same 5-second clip with four model sizes:
+
+| Model | Transcription time | Real-time factor | Transcript |
+| :--- | :--- | :--- | :--- |
+| tiny.en | 1.07 s | 0.21x | IP address is 1056 or 12976 |
+| base.en | 2.02 s | 0.40x | IP address is 1056, 12976. |
+| small.en | 5.64 s | 1.13x | IP address is 1056 12976 |
+| medium.en | 15.79 s | 3.16x | IP address is 1056.129.76 |
+
+(medium.en's 187 s model load included downloading 1.5 GB. That's a one-time cost, not part of the response delay.)
+
+Every model heard the same digits. What they got wrong was the structure. tiny.en even invented an "or" that I never said. base.en and small.en turned the dots into a comma or a space. Only medium.en recognized the dots, and it still grouped the numbers wrong. So the bigger models didn't hear better. They just guessed the formatting better.
+
+The improvement stops being worth it after base.en. small.en has a real-time factor above 1, meaning it takes longer to transcribe than I took to speak. On top of the silence the system already waits to decide I'm done, that's almost 6 seconds of dead air, which feels like the device froze. medium.en took 16 seconds for a 5-second sentence, which is unusable in conversation. base.en answered in about 2 seconds with the same digits as the others. For a system that has to reply, base.en (or tiny.en for speed) is the sweet spot.
+
+Design takeaway: a bigger model isn't the fix for numbers. It's better to use a fast model, clean up the digits in code, and read the number back for confirmation ("I heard 10, 56, 129, 76, is that right?").
 
 \*\***Write your own script that verbally asks for a numerical input (a phone number, zipcode, number of pets) and records the answer the respondent provides.**\*\* Numbers are a good stress test — transcription systems make characteristic errors on digit strings, and you will want to know what they are before you design around them.
 
