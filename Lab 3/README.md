@@ -198,6 +198,8 @@ Speak, pause, and watch it transcribe. Now change the endpointing threshold — 
 
 \*\***Try both extremes, and something in between. Describe what each one feels like to talk to. Note specifically: at 0.2s, what kinds of normal speech get cut off? At 1.5s, what does the delay make the system seem like?**\*\*
 
+At 0.2 s the system felt jumpy, like someone who keeps interrupting. Any normal pause ended my turn: "My phone number is… 612" came out as two separate lines (and lost "My"), and a breath split "a long sentence… in the middle" in two. So thinking pauses, "uh"s and breaths get cut off, which is exactly where people pause when giving numbers. Short answers like "Yeah" worked fine, though. At 1.5 s nothing got split, and even "My phone number is 612" with a pause came through whole. But after I stopped talking I waited about 1.5 s of silence plus about 0.9 s of transcription, around 2.4 s total. That made the system seem slow or distracted, like it wasn't sure I was done. It also merged separate utterances: my instructions and my "yes" became one line. The default 0.4 s felt like the best middle ground for short back-and-forth. For a number-taking device I'd use around 0.8–1.0 s, so people can pause between digit groups without being cut off.
+
 There is no correct value. A system that takes drink orders and a system that listens to someone think out loud want very different thresholds, and the right one depends on what your users are doing with their pauses.
 
 ### The complete loop
