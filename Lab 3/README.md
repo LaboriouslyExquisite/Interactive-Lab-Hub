@@ -216,9 +216,52 @@ Storyboard and/or use a Verplank diagram to design a speech-enabled device. (Stu
 
 \*\***Post your storyboard and diagram here.**\*\*
 
+<img width="1286" height="655" alt="storyboardimagelab3" src="https://github.com/user-attachments/assets/54cf6c41-267a-44e0-aca2-290770dc8430" />
+
 Write out what you imagine the dialogue to be. Use cards, post-its, or whatever method helps you develop alternatives or group responses.
 
 \*\***Please describe and document your process.**\*\*
+
+##Voice Activated Recording Device
+Our idea is to create an interactive, voice activated recording device that allows users to control a recording through a set of predefined voice commands.
+
+Starting the Device
+The recording device begins in an off state. The device will say "Welcome to the Voice Activated Recording Device!" Say:
+
+"Help settings"
+
+to get started.
+
+The device will then verbally explain the available commands and the rules for using them.
+
+Available Voice Commands
+The device supports four main commands:
+
+"Start recording"
+Begins a new recording.
+
+"Pause recording"
+Pauses the current recording.
+
+"Play recording"
+Resumes a paused recording.
+
+"End recording"
+Stops and completes the current recording.
+
+Command Rules
+The device follows a specific set of rules to ensure that commands are used in the correct order: Note there will be a 2 second pause in between each interaction between user and device.
+
+After entering the help settings, the first command must be "Start recording."
+"Pause recording" can only be used while the device is actively recording.
+"Play recording" can only be used when the recording is currently paused.
+"End recording" can only be used while the recording is active.
+Recording Process
+After listening to the available commands and rules, the user says "Start recording" to begin.
+
+While the recording is active, the user can say "Pause recording" to temporarily pause it. To resume, the user says "Play recording." This process can be repeated as needed throughout the recording session.
+
+When the user is finished, they say "End recording." The device will stop the recording and upload the completed video to the connected computer, where the user can access and watch it. The device will say "uploading video" to indicate to the user that the video is processing.
 
 Your script should include the pauses. Where does your device wait, and for how long? You now know from Part C that this is a parameter you have to choose, not something that happens for free.
 
