@@ -167,9 +167,10 @@ Design takeaway: a bigger model isn't the fix for numbers. It's better to use a 
 
 \*\***Write your own script that verbally asks for a numerical input (a phone number, zipcode, number of pets) and records the answer the respondent provides.**\*\* Numbers are a good stress test — transcription systems make characteristic errors on digit strings, and you will want to know what they are before you design around them. 
 
-For the script that verbally asks participant for a numerical input, go to: 
+For the script that verbally asks participant for a numerical input, go to: Interactive-Lab-Hub/Lab 3/speech-scripts/ask_number.py
 
-Here is what it transcribed:
+Here is what it transcribed: Interactive-Lab-Hub/Lab 3/speech-scripts/number_log.csv
+
 time,question,model,transcript,digits,length_ok,transcribe_seconds,rtf
 2026-09-27T16:35:19,zip,base.en,My zip code is 10044.,10044,True,2.31,0.39
 2026-09-27T16:37:50,phone,base.en,6 1 2 7 6 3 6 5 7,612763657,False,2.69,0.45
