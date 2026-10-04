@@ -305,6 +305,10 @@ The system should:
 
 *Include videos or screencaptures of both the system and the controller.*
 
+<a href="https://youtu.be/lPQywgG8UPU" target="_blank">
+  <img src="https://youtu.be/lPQywgG8UPU" alt="Watch the video" width="600" height="338" border="10" />
+</a>
+
 ## Test the system
 
 Try to get at least two people to interact with your system. (Ideally, you would inform them that there is a wizard *after* the interaction, but we recognize that can be hard.)
