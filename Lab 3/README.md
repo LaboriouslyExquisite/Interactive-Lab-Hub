@@ -281,7 +281,11 @@ Overall the script we followed was almost perfect. There were some inconsistence
 
 For Part 2, you will redesign the interaction with the speech-enabled device using the data collected, as well as feedback from part 1.
 
-Jovian Wang, https://github.com/jovianw/Interactive-Lab-Hub/tree/Fall2026/Lab%203 - Very cool and functional application of speech recognition and audio! Small feedback: it should be more clear what the commands are. Is it "pause recording", or is it "Camera, pause", where the device recognizes that keyword "camera"? This wasn't clear in the acted out dialogue and definitely something to think more about. Overall, great idea!
+1. Rohil Saraf, https://github.com/rohilsaraf97/Interactive-Lab-Hub/tree/Fall2026/Lab%203 - Great idea! In fact, it would have been really useful for recording these demos. Does this mean the device is always listening? Is there an indication of when it is? Also, in the final video, is the device's audio instruction recorded too? This is amazing though! I could see it being used for hands-free recording of tutorials, cooking videos, or lectures.
+
+2. Jovian Wang, https://github.com/jovianw/Interactive-Lab-Hub/tree/Fall2026/Lab%203 - Very cool and functional application of speech recognition and audio! Small feedback: it should be more clear what the commands are. Is it "pause recording", or is it "Camera, pause", where the device recognizes that keyword "camera"? This wasn't clear in the acted out dialogue and definitely something to think more about. Overall, great idea!
+
+3. Gaurav Patel, https://github.com/Nishant-Ray/Interactive-Lab-Hub/blob/Fall2026/Lab%203/README.md - I like the idea! I like how you can basically record and do everything you need without requiring a camera man. I think the idea might need some help for the start recording because you don't want it to start immediately. However is that what the 1,2,3 is for? I think every action you ask for should be responded with to confirm that whatever action is happening is actually happening. I also really like the immediate upload idea, but maybe you should have like an ask of whether or not they should upload instead of immediately uploading.
 
 ## Prep for Part 2
 
