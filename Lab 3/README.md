@@ -281,6 +281,8 @@ Overall the script we followed was almost perfect. There were some inconsistence
 
 For Part 2, you will redesign the interaction with the speech-enabled device using the data collected, as well as feedback from part 1.
 
+Jovian Wang, https://github.com/jovianw/Interactive-Lab-Hub/tree/Fall2026/Lab%203 - Very cool and functional application of speech recognition and audio! Small feedback: it should be more clear what the commands are. Is it "pause recording", or is it "Camera, pause", where the device recognizes that keyword "camera"? This wasn't clear in the acted out dialogue and definitely something to think more about. Overall, great idea!
+
 ## Prep for Part 2
 
 1. What are concrete things that could use improvement in the design of your device? For example: wording, timing, anticipation of misunderstandings.
