@@ -333,6 +333,12 @@ Answer the following:
 
 <details>
 
+2 peoples feedback: 
+
+David Zhang: The system is cool and video recording works well. In the beginning its difficult to know which commands to say and unclear where to start. Sometimes the voice recognition system wasn't that good and didn't parse the speech probably. The screen was displaying lots of text but it was difficult to see because it was very small and hard to keep track of the commands. 
+
+Allen Lu: The system worked well overall and the recording features were easy to use once I understood the commands. At first, I was unsure what I was supposed to say because there were several different voice commands to remember. The voice recognition also occasionally misunderstood what I said, so I had to repeat certain commands. The screen helped show the current state of the system, but the text was small and there was too much information displayed at once. Using larger text and showing only the commands that are currently available would make the system easier to follow.
+
 ### What worked well about the system and what didn't?
 The whole idea for the system, including the play/pause/record aspect worked as intended. When the user said certain commands, the machine would appropriately follow them and execute the proper interaction. One thing that could be improved is to use a different model for parsing the speech from the user. Sometimes the model would not interpret the speech very well and would get the wrong text. As a result, the user would often times have to mention the same command multiple times, causing a big inconvenience. 
 
