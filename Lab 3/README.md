@@ -320,13 +320,12 @@ The system should:
 </a>
 </details>
 ## Test the system
-<details>
 
 Try to get at least two people to interact with your system. (Ideally, you would inform them that there is a wizard *after* the interaction, but we recognize that can be hard.)
 
 Answer the following:
 
-</details>
+<details>
 
 ### What worked well about the system and what didn't?
 The whole idea for the system, including the play/pause/record aspect worked as intended. When the user said certain commands, the machine would appropriately follow them and execute the proper interaction. One thing that could be improved is to use a different model for parsing the speech from the user. Sometimes the model would not interpret the speech very well and would get the wrong text. As a result, the user would often times have to mention the same command multiple times, causing a big inconvenience. 
@@ -340,6 +339,7 @@ The biggest lesson I take away from this WoZ interaction is that I should keep t
 
 ### How could you use your system to create a dataset of interaction? What other sensing modalities would make sense to capture?
 During user interactions, we could record and save certain commands that users say to capture the more typical phrases. After then we can reduce the amount of commands and just focus on commands that are high use. In addition, we could also save how long the user takes a pause in between each voice interaction to better modify how much pause time there should be within each interaction. Some other sensing modalities that would make sense to capture would be physical touch interactions with the buttons. Often times users would like to be able to control the system through buttons.
+</details>
 
 <details>
   <summary><strong>Submission Cleanup Reminder (Click to Expand)</strong></summary>
