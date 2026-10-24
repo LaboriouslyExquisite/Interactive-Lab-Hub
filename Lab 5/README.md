@@ -166,6 +166,9 @@ Then press q to quit and run it again with a flag. Each one changes a single thi
 
 <img width="1601" height="977" alt="image" src="https://github.com/user-attachments/assets/8f533f8d-b894-40ef-9888-e728632b852a" />
 
+After running:  python yolo_person.py --all: It thought the phone is a remote and my pencil box is a tv, which shows the limitations of this data set!
+<img width="1597" height="997" alt="image" src="https://github.com/user-attachments/assets/80cb3eea-a2d3-451d-9195-8247977091d8" />
+
 
 ## Part C. 
 ### See more: hands and pose with MediaPipe
