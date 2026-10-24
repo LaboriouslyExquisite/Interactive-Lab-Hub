@@ -196,6 +196,11 @@ Consider how you might use this position based approach to create an interaction
 
 \*\*\***Include a screenshot or short video of the hand pose demo, and write how you might use face, hand or body pose tracking in your observant system.**\*\*\*
 
+<img width="1002" height="1073" alt="image" src="https://github.com/user-attachments/assets/3ad4ccd8-77cc-40d0-b06c-63550441629e" />
+
+<img width="1013" height="1078" alt="image" src="https://github.com/user-attachments/assets/b3115c01-a2d2-446b-ab8f-38f450caa616" />
+
+<img width="1012" height="1078" alt="image" src="https://github.com/user-attachments/assets/01f41e82-a3d8-46c1-a8e6-41c754edcf98" />
 
 ## Part D. 
 ### Reason: run Qwen on the Pi with Ollama
