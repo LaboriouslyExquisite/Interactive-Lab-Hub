@@ -281,6 +281,7 @@ eval rate:            2.00 tokens/s
 
 **2. 0.6B output:**
 
+```
 pi@vr373:~/Documents/GitHub/Interactive-Lab-Hub/Lab 5 $ ollama --verbose run qwen3:0.6b
 >>> /set nothink
 Set 'nothink' mode.
@@ -313,6 +314,8 @@ prompt eval rate:     63.60 tokens/s
 eval count:           179 token(s)
 eval duration:        27.651955s
 eval rate:            6.47 tokens/s
+```
+
 
 What I asked: one prompt with three questions to both models, with thinking turned off: (1) what the weird “â” symbol before each answer is, (2) whether the sky is blue, and (3) how full the cup in front of me is.
 
