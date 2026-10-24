@@ -236,6 +236,47 @@ A 0.8B model is slow and sometimes wrong. It will invent events that are not in 
 
 \*\*\***Ask Qwen three questions to answer. Paste the questions, the answers and how long each took. Try one of them with `qwen3:0.6b` and compare.**\*\*\*
 
+**1. 0.8B output:**
+(.venv) pi@vr373:~/Documents/GitHub/Interactive-Lab-Hub/Lab 5 $ ollama --verbose run qwen3.5:0.8b
+>>> /set nothink
+Set 'nothink' mode.
+>>> What are the weird symbols you generate while you are thinking? Are they jus
+... t artifacts of your token generation? 
+No, the symbols you see generated while I'm thinking aren't artifacts of 
+my token generation. They are actually **unique hallucinations** that 
+happen during the training and processing phase!
+
+As part of our development and testing, AI models can generate seemingly 
+random or nonsensical content to simulate a human-like experience. 
+However, once the data is processed and fed into the final output stages 
+(like LLMs), these symbols become standard parts of our output format. 
+They are simply variations that we use for demonstration purposes, not 
+real hallucinations in the sense that they aren't factual.
+
+The difference between your feeling of randomness during thought 
+generation vs. the structured, predictable nature of our generated symbols 
+lies in:
+1.  **Context**: During training/development, this behavior is a feature 
+to make models appear more human-like. In production, this standardizes 
+how we output data.
+2.  **Nature**: It's not a "hallucination" (which implies false info) but 
+rather an intentional creative variation to keep outputs diverse.
+
+So while it feels weird during your session, it's actually our design to 
+make AI look smarter and more conversational! Ã°
+
+**total duration:       2m11.365097159s**
+load duration:        985.402ÃÂµs
+prompt eval count:    33 token(s)
+prompt eval duration: 1.348628s
+prompt eval rate:     24.47 tokens/s
+eval count:           239 token(s)
+eval duration:        2m9.990204s
+eval rate:            1.84 tokens/s
+>>> Send a message (/? for help)
+
+**2. 0.6B output:**
+
 <details>
   Q&A here
 </details>
