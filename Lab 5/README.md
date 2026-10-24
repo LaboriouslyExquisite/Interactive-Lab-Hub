@@ -328,8 +328,8 @@ qwen3.5:0.8b gave real answers but filled them with made-up details. It correctl
 qwen3:0.6b was about 4× faster but avoided answering. It hedged every question with some version of “without more context it’s hard to say,” including the sky question, which has a simple factual answer. It invented nothing, but it also told me nothing.
 
 Takeaways: the bigger model is more useful but more confident in its fabrications. The smaller one is faster but evasive. Neither can answer a question about the physical world from text alone. The “â” symbol was a terminal encoding glitch in Ollama’s loading spinner (a locale setting), which no model could have known. This matches the README’s warning: give the model the data and keep its job narrow. That’s why Part E feeds Qwen YOLO readings rather than asking it open questions.
-</details>
 
+</details>
 
 ## Part E. 
 ### Connect: from YOLO readings to Qwen reasoning
