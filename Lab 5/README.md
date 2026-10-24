@@ -202,6 +202,8 @@ Consider how you might use this position based approach to create an interaction
 
 <img width="1012" height="1078" alt="image" src="https://github.com/user-attachments/assets/01f41e82-a3d8-46c1-a8e6-41c754edcf98" />
 
+Predefined poses and events are a great way to activate your raspberry pi from a state in which it's just observing. Events and poses are low cost triggers to help change our neutral observing raspberry pi into something that reacts in real time to it's environment! For example, my partner and I want to determine who leaves the bathroom lights on the most out of our three roommates, and pose estimation would be a great way to figure out when our raspberry pi should note when someone is leaving the bathroom vs when someone is entering the bathroom. And when this happens we can have the raspberry pi take an image with a note of who it infers is in the image and with that is we are able to verify who exactly is going into the bathroom and out of the bathroom and when. Then depending on who goes in and out of the bathroom we have to track when the lights are turned on and off, and we can take make this computationally heavy task only run when someone is entering or existing the room so it doesn't overload our raspberry pi's processor unnecessarily. Overall events and pose estimation of ap persons face, hand, or body is a helpful way to tell how our systems should react in real time at a low cost of computation.
+
 ## Part D. 
 ### Reason: run Qwen on the Pi with Ollama
 
