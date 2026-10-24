@@ -164,6 +164,8 @@ Then press q to quit and run it again with a flag. Each one changes a single thi
 
 \*\*\***Include a short video or screenshots of the person detection.**\*\*\*
 
+<img width="1601" height="977" alt="image" src="https://github.com/user-attachments/assets/8f533f8d-b894-40ef-9888-e728632b852a" />
+
 
 ## Part C. 
 ### See more: hands and pose with MediaPipe
