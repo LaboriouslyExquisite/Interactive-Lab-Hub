@@ -133,6 +133,12 @@ pi@raspberrypi:~ $ ollama list
 
 \*\*\***Include a screenshot of `ollama list` showing your models.**\*\*\*
 
+pi@vr373:~ $ ollama list
+NAME            ID              SIZE      MODIFIED           
+qwen3:0.6b      7df6b6e09427    522 MB    26 seconds ago        
+qwen3.5:0.8b    de63045f2975    1.3 GB    About a minute ago 
+
+<img width="561" height="135" alt="image" src="https://github.com/user-attachments/assets/55f621c6-7d5e-4c4e-9d1a-af7e3f308e53" />
 
 ## Part B. 
 ### See: recognize people in real time with YOLO
