@@ -236,7 +236,10 @@ A 0.8B model is slow and sometimes wrong. It will invent events that are not in 
 
 \*\*\***Ask Qwen three questions to answer. Paste the questions, the answers and how long each took. Try one of them with `qwen3:0.6b` and compare.**\*\*\*
 
-**1. 0.8B output:**
+<details>
+  Q&A here
+
+	**1. 0.8B output:**
 
 ```
 (.venv) pi@vr373:~/Documents/GitHub/Interactive-Lab-Hub/Lab 5 $ ollama --verbose run qwen3.5:0.8b
@@ -278,8 +281,53 @@ eval rate:            2.00 tokens/s
 
 **2. 0.6B output:**
 
-<details>
-  Q&A here
+pi@vr373:~/Documents/GitHub/Interactive-Lab-Hub/Lab 5 $ ollama --verbose run qwen3:0.6b
+>>> /set nothink
+Set 'nothink' mode.
+>>> What is the weird symbol "a" you are generating before you start yping out y
+... our ansewr? is the sky blue? How full is the cup in front of me? 
+The question you're asking is a bit cryptic and not very clear. However, 
+if you're referring to a specific symbol or object, here's some 
+information:
+
+1. **The "a" symbol**: In some contexts, "a" can represent a variety of 
+things, such as a letter, a sound, or a concept. However, without more 
+context, it's hard to pinpoint a specific meaning.
+
+2. **The sky**: In many cultures, the sky is associated with the sky 
+above, but without more details, it's hard to say what you're referring 
+to.
+
+3. **The cup**: If you're asking about a cup in front of you, it's 
+possible that it's a specific object of interest, but without more 
+information, it's hard to determine its state.
+
+If you can provide more details, I'd be happy to help clarify the question.
+
+total duration:       28.224813712s
+load duration:        1.610325ms
+prompt eval count:    53 token(s)
+prompt eval cached:   17 token(s)
+prompt eval duration: 566.082ms
+prompt eval rate:     63.60 tokens/s
+eval count:           179 token(s)
+eval duration:        27.651955s
+eval rate:            6.47 tokens/s
+
+What I asked: one prompt with three questions to both models, with thinking turned off: (1) what the weird “â” symbol before each answer is, (2) whether the sky is blue, and (3) how full the cup in front of me is.
+
+| Metric | Qwen3.5:0.8b | Qwen3:0.6b |
+| :--- | :--- | :--- |
+| **Total time** | 1 min 55 s | 28 s |
+| **Tokens generated** | 227 | 179 |
+| **Speed** | 2.0 tokens/s | 6.5 tokens/s |
+
+
+qwen3.5:0.8b gave real answers but filled them with made-up details. It correctly said it can’t see my cup, and it explained that the sky is blue because of Rayleigh scattering, which is right. Then it invented things: it claimed an 8192-token context window as the reason it couldn’t answer about the cup, called the exchange “a conversation between two different characters,” and guessed the cup was “small and colorful.” It skipped the symbol question entirely. It also took almost 2 minutes.
+
+qwen3:0.6b was about 4× faster but avoided answering. It hedged every question with some version of “without more context it’s hard to say,” including the sky question, which has a simple factual answer. It invented nothing, but it also told me nothing.
+
+Takeaways: the bigger model is more useful but more confident in its fabrications. The smaller one is faster but evasive. Neither can answer a question about the physical world from text alone. The “â” symbol was a terminal encoding glitch in Ollama’s loading spinner (a locale setting), which no model could have known. This matches the README’s warning: give the model the data and keep its job narrow. That’s why Part E feeds Qwen YOLO readings rather than asking it open questions.
 </details>
 
 
