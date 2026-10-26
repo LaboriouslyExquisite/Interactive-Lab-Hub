@@ -1,0 +1,211 @@
+"""
+tram_common.py: shared pieces for the Roosevelt Island tram watcher.
+
+Camera access, the config file (tram_config.json), change detection versus an empty
+background (for direction and for finding tram images to label), and the operating hours. The other tram_*.py scripts import this file.
+"""
+import datetime
+import json
+import pathlib
+
+import cv2
+import numpy as np
+
+CONFIG = pathlib.Path("tram_config.json")
+DATA = pathlib.Path("tram_data")            # cropped frames: tram_data/YYYYMMDD/HHMMSS.jpg
+LABELS = pathlib.Path("tram_labels.csv")    # filename,label   (1 = tram in view, 0 = no tram)
+MODEL = pathlib.Path("tram_model.pt")          # the trained classifier (copied here by tram_train.py)
+EVENTS = pathlib.Path("tram_events.jsonl")  # one line per pass: start, end, duration, direction
+STATE = pathlib.Path("tram_state.json")     # live state, rewritten every second (display + API read it)
+
+ROTATIONS = {"cw": cv2.ROTATE_90_CLOCKWISE, "ccw": cv2.ROTATE_90_COUNTERCLOCKWISE,
+             "180": cv2.ROTATE_180}
+CROP_WIDTH = 320                            # crops are resized to this width before saving
+
+
+# ---------- config ----------
+
+def load_config(required=True):
+    if CONFIG.exists():
+        with open(CONFIG) as f:
+            return json.load(f)
+    if required:
+        raise SystemExit("no tram_config.json yet: run `python tram_collect.py --setup` first")
+    return {}
+
+
+def save_config(cfg):
+    with open(CONFIG, "w") as f:
+        json.dump(cfg, f, indent=2)
+
+
+# ---------- camera ----------
+
+def open_cam(cfg):
+    cap = cv2.VideoCapture(cfg.get("camera", 0))
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, cfg.get("width", 1280))
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, cfg.get("height", 720))
+    if not cap.isOpened():
+        raise SystemExit("no webcam found: is it plugged in?")
+    return cap
+
+
+def grab(cap, cfg):
+    """One fresh full frame, rotated as configured. Raises RuntimeError if the camera fails."""
+    for _ in range(4):                       # the webcam buffers frames; skip the stale ones
+        cap.grab()
+    ok, frame = cap.read()
+    if not ok:
+        raise RuntimeError("no frame from the webcam")
+    code = ROTATIONS.get(cfg.get("rotate"))
+    return frame if code is None else cv2.rotate(frame, code)
+
+
+class Exposure:
+    """Our own auto-exposure, metered on the tram's box only.
+
+    The webcam's built-in auto-exposure looks at the whole picture, so at night a few bright
+    windows and bridge lamps make it keep the exposure short and the sky goes black. This
+    switches the webcam to manual and nudges exposure (then gain) until the box's median
+    brightness sits near `target`. Units are the camera's own (on Linux webcams usually
+    0.1 ms steps); see the range with: v4l2-ctl --list-ctrls
+    """
+
+    def __init__(self, cap, cfg):
+        e = cfg.get("exposure", {})
+        self.cap, self.target = cap, e.get("target", 100)
+        self.lo, self.hi = e.get("min", 3), e.get("max", 1500)          # exposure range
+        self.gain_hi = e.get("max_gain", 100)
+        self.enabled = e.get("enabled", True)
+        self.value = e.get("start", 150)
+        self.gain = 0
+        self.frames = 0
+        if self.enabled:
+            cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 1)      # V4L2: 1 = manual, 3 = automatic
+            self._apply()
+            if abs(cap.get(cv2.CAP_PROP_EXPOSURE) - self.value) > 1:
+                cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 3)      # give control back to the camera
+                print("note: the webcam did not accept manual exposure; using its own "
+                      "(check v4l2-ctl --list-ctrls)", flush=True)
+                self.enabled = False
+
+    def _apply(self):
+        self.cap.set(cv2.CAP_PROP_EXPOSURE, float(self.value))
+        self.cap.set(cv2.CAP_PROP_GAIN, float(self.gain))
+
+    def update(self, roi_img):
+        """Call once per frame with the crop. Adjusts every 3rd frame so the camera can settle."""
+        self.frames += 1
+        if not self.enabled or self.frames % 3:
+            return
+        level = float(np.median(cv2.cvtColor(roi_img, cv2.COLOR_BGR2GRAY)))
+        if level < self.target * 0.75:                  # too dark: longer exposure, then gain
+            if self.value < self.hi:
+                self.value = min(self.hi, max(self.value + 1, int(self.value * 1.4)))
+            elif self.gain < self.gain_hi:
+                self.gain = min(self.gain_hi, self.gain + 10)
+            else:
+                return
+        elif level > self.target * 1.3:                 # too bright: less gain, then shorter
+            if self.gain > 0:
+                self.gain = max(0, self.gain - 10)
+            elif self.value > self.lo:
+                self.value = max(self.lo, int(self.value / 1.4))
+            else:
+                return
+        else:
+            return
+        self._apply()
+
+    def status(self):
+        return f"exposure {self.value}, gain {self.gain}" if self.enabled else "camera auto-exposure"
+
+
+def crop(frame, cfg):
+    """Cut out only the tram's part of the sky and shrink it. Everything else in the view
+    (street, cars, windows) is thrown away before anything is saved or analyzed."""
+    x, y, w, h = cfg["roi"]
+    roi = frame[y:y + h, x:x + w]
+    scale = CROP_WIDTH / roi.shape[1]
+    return cv2.resize(roi, (CROP_WIDTH, max(8, int(roi.shape[0] * scale))), interpolation=cv2.INTER_AREA)
+
+
+# ---------- change-based helpers (no color rules) ----------
+
+def gray_small(img):
+    """A small, slightly blurred grayscale copy: cheap to compare, ignores sensor noise."""
+    g = cv2.cvtColor(cv2.resize(img, (160, max(8, img.shape[0] * 160 // img.shape[1]))),
+                     cv2.COLOR_BGR2GRAY)
+    return cv2.GaussianBlur(g, (5, 5), 0).astype(np.float32)
+
+
+def change_mask(img, background, thresh=25):
+    """Pixels that differ clearly from the background (the same view with no tram).
+    Brightness is matched first, so a cloud or dusk darkening the whole view does not count."""
+    g, b = gray_small(img), gray_small(background.astype(np.uint8))
+    g = g * (b.mean() + 1e-6) / (g.mean() + 1e-6)
+    return np.abs(g - b) > thresh
+
+
+def change_score(img, background):
+    """Fraction of the crop that changed versus the background."""
+    return float(change_mask(img, background).mean())
+
+
+def motion_x(img, background):
+    """Horizontal position (0 = left, 1 = right) of whatever changed, or None.
+    Used only to tell which way a cabin is moving."""
+    m = change_mask(img, background)
+    xs = np.nonzero(m)[1]
+    if len(xs) < 6:
+        return None
+    return float(np.median(xs) / m.shape[1])
+
+
+# ---------- the trained classifier ----------
+
+def load_classifier():
+    """Returns p_tram(img) -> probability (0..1) that a tram is in the crop."""
+    if not MODEL.exists():
+        raise SystemExit("no tram_model.pt yet: label some images and run tram_train.py first")
+    from ultralytics import YOLO
+    model = YOLO(str(MODEL), task="classify")
+    meta = MODEL.with_suffix(".json")
+    imgsz = json.load(open(meta)).get("imgsz", 160) if meta.exists() else 160
+    idx = [k for k, v in model.names.items() if v == "tram"][0]
+
+    def p_tram(img):
+        r = model.predict(img, imgsz=imgsz, verbose=False)[0]
+        return float(r.probs.data[idx])
+    return p_tram
+
+
+# ---------- operating hours ----------
+
+def in_service(t=None):
+    """Tram hours: 6:00 to 2:00 the next morning, until 3:30 on Friday and Saturday nights.
+    (Check the operator's posted schedule; holidays and outages are not modeled.)"""
+    t = t or datetime.datetime.now()
+    minutes = t.hour * 60 + t.minute
+    if minutes >= 6 * 60:
+        return True
+    yesterday = (t - datetime.timedelta(days=1)).weekday()     # night after Fri (4) / Sat (5)
+    end = 3 * 60 + 30 if yesterday in (4, 5) else 2 * 60
+    return minutes < end
+
+
+def period(t):
+    """The time-of-day bucket a gap between passes is grouped into."""
+    weekend = t.weekday() >= 5
+    h = t.hour
+    if h < 6:
+        name = "late night"
+    elif h < 10:
+        name = "morning"
+    elif h < 16:
+        name = "midday"
+    elif h < 20:
+        name = "evening"
+    else:
+        name = "night"
+    return ("weekend " if weekend else "weekday ") + name
