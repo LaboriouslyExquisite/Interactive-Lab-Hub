@@ -1,7 +1,7 @@
 """
 tram_collect.py: point the camera at the tram, mark where it runs, and collect training images.
 
-    python tram_collect.py --setup --rotate none   # click a box around the tram's path (Pi desktop)
+    python tram_collect.py --setup --rotate none   # click an outline around the tram's path (Pi desktop)
     python tram_collect.py --setup --mirror on     # same, but un-mirror a webcam that flips left/right
     python tram_collect.py --exposure-test         # watch our exposure control settle (60 s)
     python tram_collect.py --minutes 45            # one session right now: a crop every 4 s for 45 min
@@ -44,40 +44,50 @@ def setup(args):
     clicks = []
 
     def on_mouse(event, x, y, flags, param):
-        if event == cv2.EVENT_LBUTTONDOWN and len(clicks) < 2:
+        if event == cv2.EVENT_LBUTTONDOWN:
             clicks.append((x, y))
 
     title = "tram setup"
     cv2.namedWindow(title)
     cv2.setMouseCallback(title, on_mouse)
-    print("Click one corner of a box around the part of the cable where the cabins travel,\n"
-          "then the opposite corner, then press ENTER. Keep it tight: below the bridge deck,\n"
-          "above the dome, as little street and building as possible. r = redo, q = quit.",
-          flush=True)
+    print("Click points around the tram's path, like tracing an outline (6-10 points is plenty;\n"
+          "leave room for the cabin hanging below the cable), then press ENTER.\n"
+          "Exactly 2 clicks = a plain rectangle instead. u = undo last point, r = redo, q = quit.\n"
+          "Everything outside the outline is blacked out and never saved.", flush=True)
     while True:
         view = small.copy()
         for c in clicks:
             cv2.circle(view, c, 4, (0, 255, 255), -1)
         if len(clicks) == 2:
-            cv2.rectangle(view, clicks[0], clicks[1], (0, 255, 255), 2)
+            cv2.rectangle(view, clicks[0], clicks[1], (0, 255, 255), 1)
+        if len(clicks) >= 3:
+            cv2.polylines(view, [np.array(clicks, np.int32)], True, (0, 255, 255), 2)
         cv2.imshow(title, view)
         key = cv2.waitKey(50) & 0xFF
         if key == ord("r"):
             clicks.clear()
+        elif key == ord("u") and clicks:
+            clicks.pop()
         elif key == ord("q"):
             raise SystemExit("quit; nothing saved")
-        elif key in (13, 10, 32) and len(clicks) == 2:
-            (x1, y1), (x2, y2) = [(int(x / scale), int(y / scale)) for x, y in clicks]
-            x, y, w, h = min(x1, x2), min(y1, y2), abs(x2 - x1), abs(y2 - y1)
+        elif key in (13, 10, 32) and len(clicks) >= 2:
+            pts = [(int(px / scale), int(py / scale)) for px, py in clicks]
+            xs, ys = [p[0] for p in pts], [p[1] for p in pts]
+            x, y, w, h = min(xs), min(ys), max(xs) - min(xs), max(ys) - min(ys)
             if w > 10 and h > 10:
                 break
-            print("box too small, click again", flush=True)
+            print("outline too small, click again", flush=True)
             clicks.clear()
     cv2.destroyAllWindows()
     cfg["roi"] = [x, y, w, h]
+    if len(pts) >= 3:
+        cfg["polygon"] = [list(p) for p in pts]
+    else:
+        cfg.pop("polygon", None)
     save_config(cfg)
     cv2.imwrite("tram_preview.jpg", crop(frame, cfg))
-    print(f"saved tram_config.json (box {w}x{h} px) and tram_preview.jpg (what gets saved)")
+    shape = f"outline of {len(pts)} points" if len(pts) >= 3 else "rectangle"
+    print(f"saved tram_config.json ({shape}, {w}x{h} px) and tram_preview.jpg (what gets saved)")
 
 
 def settle(cap, cfg, exposure, seconds=20):
@@ -99,7 +109,9 @@ def exposure_test(args):
     while time.time() < end:
         img = crop(grab(cap, cfg), cfg)
         exposure.update(img)
-        level = float(np.median(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)))
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        inside = gray[img.max(axis=2) > 0]
+        level = float(np.median(inside if inside.size else gray))
         print(f"box brightness {level:5.1f} (target {exposure.target})   {exposure.status()}",
               flush=True)
         cv2.imwrite("tram_preview.jpg", img)

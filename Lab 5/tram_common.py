@@ -120,7 +120,9 @@ class Exposure:
         self.frames += 1
         if not self.enabled or self.frames % 3:
             return
-        level = float(np.median(cv2.cvtColor(roi_img, cv2.COLOR_BGR2GRAY)))
+        gray = cv2.cvtColor(roi_img, cv2.COLOR_BGR2GRAY)
+        inside = gray[roi_img.max(axis=2) > 0]           # skip the blacked-out area outside the outline
+        level = float(np.median(inside if inside.size else gray))
         if level < self.target * 0.75:                  # too dark: longer exposure, then gain
             if self.value < self.hi:
                 self.value = min(self.hi, max(self.value + 1, int(self.value * 1.4)))
@@ -147,7 +149,12 @@ def crop(frame, cfg):
     """Cut out only the tram's part of the sky and shrink it. Everything else in the view
     (street, cars, windows) is thrown away before anything is saved or analyzed."""
     x, y, w, h = cfg["roi"]
-    roi = frame[y:y + h, x:x + w]
+    roi = frame[y:y + h, x:x + w].copy()
+    if cfg.get("polygon"):                        # black out everything outside the tram's path
+        mask = np.zeros(roi.shape[:2], np.uint8)
+        pts = np.array([[px - x, py - y] for px, py in cfg["polygon"]], np.int32)
+        cv2.fillPoly(mask, [pts], 255)
+        roi[mask == 0] = 0
     scale = CROP_WIDTH / roi.shape[1]
     return cv2.resize(roi, (CROP_WIDTH, max(8, int(roi.shape[0] * scale))), interpolation=cv2.INTER_AREA)
 
