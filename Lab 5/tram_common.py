@@ -41,12 +41,27 @@ def save_config(cfg):
 
 # ---------- camera ----------
 
+def v4l2_set(cfg):
+    """Apply camera controls with v4l2-ctl (Linux). Default: 60 Hz mains, to avoid flicker
+    bands from indoor lights in the US. Add more in tram_config.json under "v4l2"."""
+    import subprocess
+    controls = {"power_line_frequency": 2, **cfg.get("v4l2", {})}
+    args = ["v4l2-ctl", "-d", f"/dev/video{cfg.get('camera', 0)}"]
+    for k, v in controls.items():
+        args += ["-c", f"{k}={v}"]
+    try:
+        subprocess.run(args, capture_output=True, timeout=5)
+    except (OSError, subprocess.SubprocessError):
+        pass                                   # v4l2-ctl missing: not essential
+
+
 def open_cam(cfg):
     cap = cv2.VideoCapture(cfg.get("camera", 0))
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, cfg.get("width", 1280))
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, cfg.get("height", 720))
     if not cap.isOpened():
         raise SystemExit("no webcam found: is it plugged in?")
+    v4l2_set(cfg)
     return cap
 
 
@@ -69,31 +84,36 @@ class Exposure:
     The webcam's built-in auto-exposure looks at the whole picture, so at night a few bright
     windows and bridge lamps make it keep the exposure short and the sky goes black. This
     switches the webcam to manual and nudges exposure (then gain) until the box's median
-    brightness sits near `target`. Units are the camera's own (on Linux webcams usually
-    0.1 ms steps); see the range with: v4l2-ctl --list-ctrls
+    brightness sits near `target`. Exposure is in 0.1 ms steps (5000 = half a second);
+    see the camera's ranges with: v4l2-ctl --list-ctrls
     """
 
     def __init__(self, cap, cfg):
         e = cfg.get("exposure", {})
         self.cap, self.target = cap, e.get("target", 100)
-        self.lo, self.hi = e.get("min", 3), e.get("max", 1500)          # exposure range
-        self.gain_hi = e.get("max_gain", 100)
+        self.lo, self.hi = e.get("min", 3), e.get("max", 5000)          # exposure range (0.1 ms)
+        self.gain_lo, self.gain_hi = e.get("min_gain", 0), e.get("max_gain", 63)
         self.enabled = e.get("enabled", True)
         self.value = e.get("start", 150)
-        self.gain = 0
+        self.gain = e.get("start_gain", 32)                               # the camera's default
         self.frames = 0
-        if self.enabled:
-            cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 1)      # V4L2: 1 = manual, 3 = automatic
-            self._apply()
-            if abs(cap.get(cv2.CAP_PROP_EXPOSURE) - self.value) > 1:
-                cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 3)      # give control back to the camera
-                print("note: the webcam did not accept manual exposure; using its own "
-                      "(check v4l2-ctl --list-ctrls)", flush=True)
-                self.enabled = False
+        self.device = f"/dev/video{cfg.get('camera', 0)}"
+        if self.enabled and not self._apply():
+            print("note: could not set exposure (is v4l2-ctl installed? sudo apt install "
+                  "v4l-utils); using the camera's own auto-exposure", flush=True)
+            self.enabled = False
 
     def _apply(self):
-        self.cap.set(cv2.CAP_PROP_EXPOSURE, float(self.value))
-        self.cap.set(cv2.CAP_PROP_GAIN, float(self.gain))
+        """Set manual exposure and gain with v4l2-ctl (OpenCV's exposure setting is ignored by
+        many webcams, including ours). Returns False if it could not."""
+        import subprocess
+        try:
+            r = subprocess.run(["v4l2-ctl", "-d", self.device, "-c", "auto_exposure=1",
+                                "-c", f"exposure_time_absolute={int(self.value)}",
+                                "-c", f"gain={int(self.gain)}"], capture_output=True, timeout=5)
+            return r.returncode == 0
+        except (OSError, subprocess.SubprocessError):
+            return False
 
     def update(self, roi_img):
         """Call once per frame with the crop. Adjusts every 3rd frame so the camera can settle."""
@@ -105,12 +125,12 @@ class Exposure:
             if self.value < self.hi:
                 self.value = min(self.hi, max(self.value + 1, int(self.value * 1.4)))
             elif self.gain < self.gain_hi:
-                self.gain = min(self.gain_hi, self.gain + 10)
+                self.gain = min(self.gain_hi, self.gain + 8)
             else:
                 return
         elif level > self.target * 1.3:                 # too bright: less gain, then shorter
-            if self.gain > 0:
-                self.gain = max(0, self.gain - 10)
+            if self.gain > self.gain_lo:
+                self.gain = max(self.gain_lo, self.gain - 8)
             elif self.value > self.lo:
                 self.value = max(self.lo, int(self.value / 1.4))
             else:
