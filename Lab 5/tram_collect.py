@@ -2,6 +2,7 @@
 tram_collect.py: point the camera at the tram, mark where it runs, and collect training images.
 
     python tram_collect.py --setup --rotate none   # click a box around the tram's path (Pi desktop)
+    python tram_collect.py --setup --mirror on     # same, but un-mirror a webcam that flips left/right
     python tram_collect.py --exposure-test         # watch our exposure control settle (60 s)
     python tram_collect.py --minutes 45            # one session right now: a crop every 4 s for 45 min
     python tram_collect.py --plan                  # all four sessions, each at its time, then stop
@@ -30,6 +31,8 @@ def setup(args):
     cfg["width"], cfg["height"] = args.width, args.height
     if args.rotate:
         cfg["rotate"] = None if args.rotate == "none" else args.rotate
+    if args.mirror is not None:
+        cfg["mirror"] = args.mirror == "on"
     cap = open_cam(cfg)
     frame = grab(cap, cfg)
     cap.release()
@@ -180,6 +183,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--setup", action="store_true", help="mark the tram's box on the camera view")
     parser.add_argument("--rotate", choices=["none"] + list(ROTATIONS), help="rotate the camera view")
+    parser.add_argument("--mirror", choices=["on", "off"], help="flip the view left/right (setup)")
     parser.add_argument("--width", type=int, default=1280, help="camera width to ask for (setup)")
     parser.add_argument("--height", type=int, default=720, help="camera height to ask for (setup)")
     parser.add_argument("--every", type=float, default=4, help="seconds between saved crops")

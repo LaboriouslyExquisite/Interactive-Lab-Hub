@@ -57,6 +57,8 @@ def grab(cap, cfg):
     ok, frame = cap.read()
     if not ok:
         raise RuntimeError("no frame from the webcam")
+    if cfg.get("mirror"):
+        frame = cv2.flip(frame, 1)          # undo a webcam that mirrors left/right
     code = ROTATIONS.get(cfg.get("rotate"))
     return frame if code is None else cv2.rotate(frame, code)
 
