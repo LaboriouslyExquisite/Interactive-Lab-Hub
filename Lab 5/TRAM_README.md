@@ -16,7 +16,8 @@ estimates; check the official schedule.
 |---|---|
 | `tram_common.py` | Shared code: camera, crop, our exposure control, change detection, model loading, service hours. |
 | `tram_collect.py` | `--setup` marks the tram's box; then collects crops (every 4 s, 45-min sessions). |
-| `tram_label.py` | Fast keyboard labeling: `t` tram, `n` no tram. Modes to find trams and confusing images. |
+| `tram_burst.py` | Press Enter when you see a tram: saves the last 3 s plus 50 photos every 0.5 s. |
+| `tram_label.py` | Fast keyboard labeling: `t` tram, `n` no tram. Modes to find trams and confusing images; `--stats` for counts. |
 | `tram_train.py` | Fine-tunes a pretrained image classifier, with pseudo-labeling (semi-supervised). |
 | `tram_watch.py` | Live tracker: classifier → Bayes filter → pass log → prediction → `tram_state.json`. |
 | `tram_display.py` | PiTFT clock and status screen, reading `tram_state.json`. |
@@ -69,6 +70,22 @@ Saved after every key. A good first batch: about 50 trams via `--find-trams`, pl
 random. Label a cabin as "tram" even if it's only partly in the box or dim at night. Include
 night images.
 
+### Get more tram photos: bursts
+
+Trams are only in view a few % of the time, so a day of collecting gives only a few dozen tram
+photos. When you're home, catch passes by hand (the camera can only be used by one program, so
+make sure `tram_collect.py` isn't running):
+
+```bash
+python tram_burst.py           # ENTER when you see a tram; q + ENTER to quit
+python tram_label.py --bursts  # label just the burst photos, in time order
+python tram_label.py --stats   # images / labeled / trams per day and hour
+```
+
+Catch some at dusk and at night too, not only in daylight; `--stats` shows the balance.
+Training groups photos into 3-minute blocks, so near-identical burst photos never end up
+on both sides of the train/test split (which would make the score look better than it is).
+
 ## 4. Train
 
 ```bash
@@ -89,6 +106,9 @@ python tram_train.py
 ```
 
 Repeat until **recall** (trams caught) and **precision** (correct alarms) stop improving.
+Ignore accuracy on its own: trams are rare, so "never a tram" already scores about 98%. The
+trainer repeats tram photos so the two classes are closer to balanced, and keeps the model
+with the best balance of recall and precision (F1).
 
 ## 5. Run it live
 

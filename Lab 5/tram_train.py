@@ -47,12 +47,22 @@ def flat(name):
     return name.replace("/", "_")
 
 
-def build_dataset(train, val, labels, pseudo=None):
+def build_dataset(train, val, labels, pseudo=None, ratio=3):
+    """Training folders. Trams are rare (a few % of images), and a network trained on that
+    as-is learns to always answer "no tram" and still scores ~98% accuracy. So the tram images
+    are repeated (each copy gets different random augmentation during training) until there
+    is at most `ratio` empty-sky images per tram image."""
     shutil.rmtree(DS, ignore_errors=True)
-    for n in train:
-        link(DATA / n, DS / "train" / CLASSES[labels[n]] / flat(n))
-    for n, y in (pseudo or {}).items():
-        link(DATA / n, DS / "train" / CLASSES[y] / ("pseudo_" + flat(n)))
+    items = [(n, labels[n], "") for n in train] + [(n, y, "pseudo_") for n, y in (pseudo or {}).items()]
+    n_pos = sum(1 for _, y, _ in items if y == 1)
+    n_neg = len(items) - n_pos
+    copies = max(1, round(n_neg / (ratio * max(1, n_pos))))
+    for n, y, tag in items:
+        for k in range(copies if y == 1 else 1):
+            link(DATA / n, DS / "train" / CLASSES[y] / f"{tag}{k}_{flat(n)}")
+    if copies > 1:
+        print(f"balancing: each tram image used {copies}x ({n_pos} -> {n_pos * copies} vs "
+              f"{n_neg} no-tram)", flush=True)
     for n in val:
         link(DATA / n, DS / "val" / CLASSES[labels[n]] / flat(n))
 
@@ -80,7 +90,7 @@ def score(model, val, labels, imgsz):
 
 def report(name, s):
     print(f"\n{name}, on the held-back images you labeled:")
-    print(f"  accuracy  {s['accuracy']:.1%}")
+    print(f"  accuracy  {s['accuracy']:.1%}   (misleading on its own: trams are rare)")
     print(f"  recall    {s['recall']:.1%}   (of the trams really there, how many it caught)")
     print(f"  precision {s['precision']:.1%}   (of its 'tram!' calls, how many were right)")
     print(f"  missed trams: {s['missed']}   false alarms: {s['false_alarms']}", flush=True)
@@ -107,14 +117,27 @@ def main():
         raise SystemExit(f"need at least 15 of each: have {n_tram} tram, {len(labels) - n_tram} "
                          "no tram. Keep labeling (tram_label.py --find-trams helps)")
 
-    rng = random.Random(0)                        # stratified split: 20% of each class held back
+    # Split by PASS, not by image: photos taken seconds apart (a burst, or the same tram over
+    # several 4 s frames) are near-copies. If some went to training and others to the test,
+    # the test would be too easy and the score too good. So images are grouped into
+    # 3-minute blocks, and whole blocks go to one side. ~20% of tram blocks and ~20% of
+    # empty blocks are held back.
+    rng = random.Random(0)
+    blocks = {}
+    for n in labels:
+        day, fname = n.split("/")
+        minute = int(fname[0:2]) * 60 + int(fname[2:4])
+        blocks.setdefault(f"{day}-{minute // 3}", []).append(n)
     train, val = [], []
-    for cls in (0, 1):
-        members = sorted(n for n, y in labels.items() if y == cls)
-        rng.shuffle(members)
-        k = max(3, len(members) // 5)
-        val += members[:k]
-        train += members[k:]
+    for has_tram in (True, False):
+        keys = sorted(k for k, ns in blocks.items() if any(labels[n] for n in ns) == has_tram)
+        rng.shuffle(keys)
+        k = max(1, len(keys) // 5) if len(keys) > 1 else 0
+        for i, key in enumerate(keys):
+            (val if i < k else train).extend(blocks[key])
+    if not any(labels[n] for n in val) or not any(labels[n] for n in train):
+        raise SystemExit("trams come from too few passes to hold some back for testing; "
+                         "label more passes (tram_burst.py helps)")
     print(f"{len(labels)} labeled ({n_tram} tram). training on {len(train)}, testing on {len(val)}",
           flush=True)
 
@@ -132,7 +155,9 @@ def main():
         s = score(model, val, labels, args.imgsz)
         report(f"round {rnd}", s)
         history.append({"round": rnd, "pseudo": len(pseudo), **s})
-        if best is None or s["accuracy"] >= best[1]["accuracy"]:
+        f1 = 2 * s["precision"] * s["recall"] / max(1e-9, s["precision"] + s["recall"])
+        s["f1"] = f1
+        if best is None or f1 >= best[1]["f1"]:            # not accuracy: "never a tram" scores ~98%
             best = (trained, s)
         weights = str(trained)
 

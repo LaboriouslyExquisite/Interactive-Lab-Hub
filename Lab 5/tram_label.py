@@ -4,6 +4,8 @@ tram_label.py: label collected crops as "tram" or "no tram", fast.
     python tram_label.py                 # random unlabeled images (start here)
     python tram_label.py --find-trams    # images that changed most first: finds trams fast (no model needed)
     python tram_label.py --uncertain     # after training: the images the model is least sure about
+    python tram_label.py --bursts        # photos from tram_burst.py, in time order
+    python tram_label.py --stats         # counts per day/hour, and whether it's enough to train
     python tram_label.py --review        # flip through what you already labeled, to fix mistakes
 
 Keys:  t = tram in view   n = no tram   s = skip   b = back one   q = save and quit
@@ -80,15 +82,46 @@ def order_by_change(names, limit):
     return sorted(scores, key=scores.get, reverse=True)
 
 
+def stats(labels):
+    """How many images, how many labeled, how many trams, per day and hour."""
+    names = all_images()
+    print(f"images collected: {len(names)}   labeled: {len(labels)}   "
+          f"unlabeled: {len([n for n in names if n not in labels])}")
+    groups = {}
+    for n in names:
+        g = groups.setdefault(n[:11], [0, 0, 0])      # "YYYYMMDD/HH": images, labeled, trams
+        g[0] += 1
+        if n in labels:
+            g[1] += 1
+            g[2] += labels[n]
+    print("\nday       hour  images  labeled  trams")
+    for k in sorted(groups):
+        day, hour = k.split("/")
+        print(f"{day}  {hour}:00  {groups[k][0]:6d}  {groups[k][1]:7d}  {groups[k][2]:5d}")
+    n_tram = sum(labels.values())
+    print(f"\ntotal: {n_tram} tram, {len(labels) - n_tram} no tram")
+    if n_tram < 15:
+        print("not enough trams to train yet (need 15+)")
+    elif n_tram < 100:
+        print("enough to train a first model; 100+ trams (incl. dusk/night) will make it much better")
+    else:
+        print("good amount of trams")
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--uncertain", action="store_true", help="show the most confusing images first")
     parser.add_argument("--find-trams", action="store_true", help="images that differ most from the empty view first")
     parser.add_argument("--review", action="store_true", help="go through already-labeled images")
+    parser.add_argument("--bursts", action="store_true", help="only photos from tram_burst.py")
+    parser.add_argument("--stats", action="store_true", help="count labels per session and exit")
     parser.add_argument("--pool", type=int, default=3000, help="images to score for --uncertain")
     args = parser.parse_args()
 
     labels = load_labels()
+    if args.stats:
+        stats(labels)
+        return
     names = all_images()
     if not names:
         raise SystemExit(f"no images in {DATA}/ yet: run tram_collect.py first")
@@ -97,11 +130,13 @@ def main():
         todo = [n for n in names if n in labels]
     else:
         todo = [n for n in names if n not in labels]
+        if args.bursts:
+            todo = sorted(n for n in todo if "_" in n.split("/")[1])     # burst names: HHMMSS_mmm.jpg
         if args.uncertain:
             todo, hints = order_by_uncertainty(todo, args.pool)
         elif args.find_trams:
             todo = order_by_change(todo, args.pool)
-        else:
+        elif not args.bursts:                 # bursts stay in time order: faster to label
             random.shuffle(todo)
     if not todo:
         raise SystemExit("nothing to label")
