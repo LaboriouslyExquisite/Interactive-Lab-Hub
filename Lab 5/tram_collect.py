@@ -29,6 +29,8 @@ from tram_common import DATA, ROTATIONS, Exposure, crop, grab, load_config, open
 def setup(args):
     cfg = load_config(required=False)
     cfg["width"], cfg["height"] = args.width, args.height
+    if args.crop_width:
+        cfg["crop_width"] = args.crop_width
     if args.rotate:
         cfg["rotate"] = None if args.rotate == "none" else args.rotate
     if args.mirror is not None:
@@ -36,7 +38,8 @@ def setup(args):
     cap = open_cam(cfg)
     frame = grab(cap, cfg)
     cap.release()
-    print(f"camera gives {frame.shape[1]}x{frame.shape[0]}", flush=True)
+    print(f"camera gives {frame.shape[1]}x{frame.shape[0]} (asked for {args.width}x{args.height})",
+          flush=True)
 
     # show the frame at most 1000 px wide so it fits the screen, but keep full-size coordinates
     scale = min(1.0, 1000 / frame.shape[1])
@@ -198,6 +201,7 @@ if __name__ == "__main__":
     parser.add_argument("--mirror", choices=["on", "off"], help="flip the view left/right (setup)")
     parser.add_argument("--width", type=int, default=1280, help="camera width to ask for (setup)")
     parser.add_argument("--height", type=int, default=720, help="camera height to ask for (setup)")
+    parser.add_argument("--crop-width", type=int, help="max width of saved crops (setup; default 320)")
     parser.add_argument("--every", type=float, default=4, help="seconds between saved crops")
     parser.add_argument("--minutes", type=float, default=45, help="length of each session")
     parser.add_argument("--exposure-test", action="store_true",

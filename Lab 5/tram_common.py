@@ -20,7 +20,7 @@ STATE = pathlib.Path("tram_state.json")     # live state, rewritten every second
 
 ROTATIONS = {"cw": cv2.ROTATE_90_CLOCKWISE, "ccw": cv2.ROTATE_90_COUNTERCLOCKWISE,
              "180": cv2.ROTATE_180}
-CROP_WIDTH = 320                            # crops are resized to this width before saving
+CROP_WIDTH = 320                            # crops are shrunk to at most this width (tram_config.json "crop_width" overrides)
 
 
 # ---------- config ----------
@@ -57,6 +57,8 @@ def v4l2_set(cfg):
 
 def open_cam(cfg):
     cap = cv2.VideoCapture(cfg.get("camera", 0))
+    if cfg.get("fourcc"):                        # e.g. "MJPG" for 1080p; off unless set in the config
+        cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*cfg["fourcc"]))
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, cfg.get("width", 1280))
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, cfg.get("height", 720))
     if not cap.isOpened():
@@ -155,8 +157,11 @@ def crop(frame, cfg):
         pts = np.array([[px - x, py - y] for px, py in cfg["polygon"]], np.int32)
         cv2.fillPoly(mask, [pts], 255)
         roi[mask == 0] = 0
-    scale = CROP_WIDTH / roi.shape[1]
-    return cv2.resize(roi, (CROP_WIDTH, max(8, int(roi.shape[0] * scale))), interpolation=cv2.INTER_AREA)
+    width = cfg.get("crop_width", CROP_WIDTH)
+    if roi.shape[1] <= width:                    # never blow up a small crop; keep every pixel
+        return roi
+    scale = width / roi.shape[1]
+    return cv2.resize(roi, (width, max(8, int(roi.shape[0] * scale))), interpolation=cv2.INTER_AREA)
 
 
 # ---------- change-based helpers (no color rules) ----------
