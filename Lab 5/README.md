@@ -394,15 +394,26 @@ Use storyboards and/or [Verplank diagrams](https://ccrma.stanford.edu/courses/25
 
 \*\*\***Insert ideas, sketches, Verplank diagrams and storyboards for your night-time interaction here.**\*\*\*
 
+Original Tram notifier idea.
+<img width="768" height="1024" alt="img_8385_1024" src="https://github.com/user-attachments/assets/b1353d2d-4780-4702-9c0c-f5873d2f384c" />
+
+Accurate tram arrival and departure notifier for night time!
+<img width="768" height="1024" alt="img_8382_1024" src="https://github.com/user-attachments/assets/794f5cfd-8834-4bca-b3e0-22d4d79be31d" />
+
 ## Prep for Part 2
 
 1. Look at and give feedback on the Part F storyboards.
-   **Put the feedback for your ideas here.**
-2. [Update your Lab Hub](prep.md#get-the-latest-content) to get the latest content for Part 2.
-3. Decide where the device will spend the night and who else lives there. Get their OK before the first run.
-4. Revise your storyboard with the feedback and with what you learned in Part E about where the pipeline breaks.
+   **Put the feedback for your ideas here.**4
+
+
+   
+3. [Update your Lab Hub](prep.md#get-the-latest-content) to get the latest content for Part 2.
+4. Decide where the device will spend the night and who else lives there. Get their OK before the first run.
+5. Revise your storyboard with the feedback and with what you learned in Part E about where the pipeline breaks.
 
 \*\*\***Post your revised storyboard here.**\*\*\*
+
+
 
 ## Part G. 
 ### Design the interaction before
