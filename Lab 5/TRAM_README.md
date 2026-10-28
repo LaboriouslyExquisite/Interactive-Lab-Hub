@@ -18,6 +18,9 @@ estimates; check the official schedule.
 | `tram_collect.py` | `--setup` marks the tram's box; then collects crops (every 4 s, 45-min sessions). |
 | `tram_burst.py` | Press Enter when you see a tram: saves the last 3 s plus 50 photos every 0.5 s. |
 | `tram_label.py` | Fast keyboard labeling: `t` tram, `n` no tram. Modes to find trams and confusing images; `--stats` for counts. |
+| `tram_box.py` | Draw boxes around the tram (grip + cabin) for the position detector. |
+| `tram_train_det.py` | Trains the position detector `tram_det.pt` from your boxes. |
+| `tram_cable.py` | Fits the cable line through your boxed grip points (0 = tower, 1 = station). |
 | `tram_train.py` | Fine-tunes a pretrained image classifier, with pseudo-labeling (semi-supervised). |
 | `tram_watch.py` | Live tracker: classifier → Bayes filter → pass log → prediction → `tram_state.json`. |
 | `tram_display.py` | PiTFT clock and status screen, reading `tram_state.json`. |
@@ -109,6 +112,24 @@ Repeat until **recall** (trams caught) and **precision** (correct alarms) stop i
 Ignore accuracy on its own: trams are rare, so "never a tram" already scores about 98%. The
 trainer repeats tram photos so the two classes are closer to balanced, and keeps the model
 with the best balance of recall and precision (F1).
+
+## 4b. Position: detector + cable line
+
+Box the tram in photos, train a detector, and fit the cable line:
+
+```bash
+python tram_box.py --bursts        # box grip + cabin (just the grip if the cabin is hidden)
+python tram_box.py                 # the remaining tram photos
+python tram_train_det.py           # trains tram_det.pt; reports the grip position error
+python tram_cable.py               # fits the cable through your grip points; 0 = tower, 1 = station
+```
+
+Once `tram_det.pt` exists and the cable is saved, `tram_watch.py` switches to position mode on
+its own. A constant-velocity Kalman filter tracks progress along the cable (0 to 1) and speed,
+and keeps predicting through missed frames and behind the trees, so it estimates when the
+cabin reaches the station and when it left it, even though the camera can't see that last
+stretch. Every pass's track is saved to `tram_tracks.jsonl`, which later becomes training data
+for a model of the real slow-down near the station.
 
 ## 5. Run it live
 

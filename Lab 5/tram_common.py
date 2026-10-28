@@ -7,6 +7,7 @@ background (for direction and for finding tram images to label), and the operati
 import datetime
 import json
 import pathlib
+from pathlib import Path
 
 import cv2
 import numpy as np
@@ -212,6 +213,26 @@ def load_classifier():
         r = model.predict(img, imgsz=imgsz, verbose=False)[0]
         return float(r.probs.data[idx])
     return p_tram
+
+
+def load_detector():
+    """Returns find(img) -> (confidence, (x1, y1, x2, y2) as 0..1 of the crop) or (0.0, None).
+    None if no detector has been trained yet (tram_train_det.py)."""
+    det = Path("tram_det.pt")
+    if not det.exists():
+        return None
+    from ultralytics import YOLO
+    model = YOLO(str(det), task="detect")
+    meta = det.with_suffix(".json")
+    imgsz = json.load(open(meta)).get("imgsz", 320) if meta.exists() else 320
+
+    def find(img):
+        r = model.predict(img, imgsz=imgsz, conf=0.05, verbose=False)[0]
+        if not len(r.boxes):
+            return 0.0, None
+        i = int(r.boxes.conf.argmax())
+        return float(r.boxes.conf[i]), tuple(r.boxes.xyxyn[i].tolist())
+    return find
 
 
 # ---------- operating hours ----------
